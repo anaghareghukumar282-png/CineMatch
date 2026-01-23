@@ -1,0 +1,17 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# Database (if using SQLite)
+db.sqlite3
+
+
+# Logs
+*.log
+

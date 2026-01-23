@@ -1,0 +1,48 @@
+{% include 'admin/header.html' %} 
+  <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">EDIT  MOVIE REGISTRATION</h6>
+                            <form method="post" action="{% url 'editmovie' dob.movieid %}" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="moviename" value="{{dob.moviename}}" placeholder="Movie Name"
+                                        aria-describedby="emailHelp">
+                                    <br>
+                                        <div class="mb-3">
+            <label class="form-label">GENRE</label>
+           <select id="inputState" name="genreid" class="form-control" required>
+                            <option value="">Choose GENRE</option>
+                            {% for g in genres %}
+                            <option value="{{ g.genreid }}" {% if dob.genreid_id == g.genreid %}selected{% endif %}>{{ g.genrename }}</option>
+                              {% endfor %}
+                      
+                            
+           </select>
+        </div>
+        <select class="form-control" name="language" required>
+            <option value="">Choose Language</option>
+            {% for l in languages %}
+            <option value="{{ l.languagename }}" {% if dob.language == l.languagename %}selected{% endif %}>{{ l.languagename }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="releaseyear" value="{{dob.releaseyear}}" placeholder="Release Year"
+                                        aria-describedby="emailHelp">
+        <br>
+        <textarea class="form-control" id="exampleInputEmail1" name="description" placeholder="Description" aria-describedby="emailHelp">{{dob.description}}</textarea>
+        <br>
+        <input type="number" class="form-control" id="exampleInputEmail1" name="duration" value="{{dob.duration}}" placeholder="Duration" aria-describedby="emailHelp">
+        <br>
+        <input type="number" step="0.1" class="form-control" id="exampleInputEmail1" name="rating" value="{{dob.rating}}" placeholder="Rating" aria-describedby="emailHelp">
+        <br>
+        <input type="file" class="form-control" id="exampleInputEmail1" name="poster" placeholder="Poster" aria-describedby="emailHelp">
+        <br>
+                                </div>  
+                               
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                               {% include 'admin/footer.html' %}

@@ -1,0 +1,126 @@
+{% load static %}
+{% include 'user/header.html' %}
+
+<section class="preferences-section">
+    <div class="container" style="margin-top: 50px; margin-bottom: 50px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="section-title wow bounceInRight animated custom-white" style="text-align: center; margin-bottom: 40px;">Select Your Preferences</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Genre Selection Column -->
+            <div class="col-md-6">
+                <div class="preference-card" style="padding: 30px; background: rgba(0,0,0,0.5); border-radius: 10px; margin-bottom: 20px;">
+                    <h3 class="custom-purple" style="margin-bottom: 20px;">
+                        <i class="fa fa-film"></i> SELECT GENRES
+                    </h3>
+                    <form method="POST" action="{% url 'save_preferences' %}">
+                        {% csrf_token %}
+                        <div class="genre-list" style="max-height: 400px; overflow-y: auto;">
+                            {% for genre in genres %}
+                                <div class="checkbox" style="margin-bottom: 15px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: white;">
+                                        <input type="checkbox" name="genres" value="{{ genre.genreid }}" style="margin-right: 10px; width: 18px; height: 18px;">
+                                        <span>{{ genre.genrename }}</span>
+                                    </label>
+                                </div>
+                            {% empty %}
+                                <p class="custom-red">No genres available</p>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary custom-button" style="margin-top: 20px; width: 100%; padding: 10px; background: linear-gradient(to right, #ec008c, #fc6767); border: none; color: white; border-radius: 5px; cursor: pointer;">
+                            Save Preferences
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Language Selection Column -->
+            <div class="col-md-6">
+                <div class="preference-card" style="padding: 30px; background: rgba(0,0,0,0.5); border-radius: 10px; margin-bottom: 20px;">
+                    <h3 class="custom-purple" style="margin-bottom: 20px;">
+                        <i class="fa fa-language"></i> SELECT LANGUAGES
+                    </h3>
+                    <form method="POST" action="{% url 'save_preferences' %}">
+                        {% csrf_token %}
+                        <div class="language-list" style="max-height: 400px; overflow-y: auto;">
+                            {% for language in languages %}
+                                <div class="checkbox" style="margin-bottom: 15px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: white;">
+                                        <input type="checkbox" name="languages" value="{{ language.languageid }}" style="margin-right: 10px; width: 18px; height: 18px;">
+                                        <span>{{ language.languagename }}</span>
+                                    </label>
+                                </div>
+                            {% empty %}
+                                <p class="custom-red">No languages available</p>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-primary custom-button" style="margin-top: 20px; width: 100%; padding: 10px; background: linear-gradient(to right, #ec008c, #fc6767); border: none; color: white; border-radius: 5px; cursor: pointer;">
+                            Save Preferences
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Both Selections Button -->
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-md-12">
+                <form method="POST" action="{% url 'save_preferences' %}" id="preferences-form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="padding: 30px; background: rgba(0,0,0,0.5); border-radius: 10px;">
+                                <h3 class="custom-purple" style="margin-bottom: 20px;">
+                                    <i class="fa fa-film"></i> GENRES
+                                </h3>
+                                <div class="genre-list" style="max-height: 400px; overflow-y: auto;">
+                                    {% for genre in genres %}
+                                        <div class="checkbox" style="margin-bottom: 15px;">
+                                            <label style="display: flex; align-items: center; cursor: pointer; color: white;">
+                                                <input type="checkbox" name="genres" value="{{ genre.genreid }}" style="margin-right: 10px; width: 18px; height: 18px;">
+                                                <span>{{ genre.genrename }}</span>
+                                            </label>
+                                        </div>
+                                    {% empty %}
+                                        <p class="custom-red">No genres available</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="padding: 30px; background: rgba(0,0,0,0.5); border-radius: 10px;">
+                                <h3 class="custom-purple" style="margin-bottom: 20px;">
+                                    <i class="fa fa-language"></i> LANGUAGES
+                                </h3>
+                                <div class="language-list" style="max-height: 400px; overflow-y: auto;">
+                                    {% for language in languages %}
+                                        <div class="checkbox" style="margin-bottom: 15px;">
+                                            <label style="display: flex; align-items: center; cursor: pointer; color: white;">
+                                                <input type="checkbox" name="languages" value="{{ language.languageid }}" style="margin-right: 10px; width: 18px; height: 18px;">
+                                                <span>{{ language.languagename }}</span>
+                                            </label>
+                                        </div>
+                                    {% empty %}
+                                        <p class="custom-red">No languages available</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary custom-button" style="width: 100%; padding: 15px; background: linear-gradient(to right, #ec008c, #fc6767); border: none; color: white; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold;">
+                                <i class="fa fa-check"></i> SAVE MY PREFERENCES
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'user/footer.html' %}

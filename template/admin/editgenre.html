@@ -1,0 +1,19 @@
+{% include 'admin/header.html' %} 
+  <div class="container-fluid pt-4 px-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">EDIT 
+                                GENRE REGISTRATION</h6>
+                            <form method ="post" action="{% url 'editgenre' dob.genreid %}">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="genrename" value="{{dob.genrename}}" placeholder="Genre"
+                                        aria-describedby="emailHelp">
+                                    <br>
+                               
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                               {% include 'admin/footer.html' %}

@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'user/images/star.png' %}" type="favicon/ico" />
+
+    <title>Cine M A T C H</title>
+
+    <link rel="stylesheet" href="{% static 'user/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/owl.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'user/nivo-lightbox/nivo-lightbox.css' %}">
+    <link rel="stylesheet" href="{% static 'user/nivo-lightbox/nivo-lightbox-theme.css' %}">
+    <link rel="stylesheet" href="{% static 'user/css/main.css' %}">
+
+  </head>
+  <body>
+
+    <!--== 4. Header ==-->
+
+        <section class="header" id="header">
+            <div class="navigationbar  navbar-fixed-top">
+                <div class="container">
+                    <a href="#" class="logo">
+                       CINE MATCH <i class="fa fa-star-o star"></i>
+                    </a>
+                    <i class="fa fa-bars pull-right" id="iconhideshow"></i>
+                    <ul class="nav hide nav-pills pull-right">
+                      <li role="presentation"><a href="#header">Home</a></li>
+                      <li role="presentation"><a href="#service">Movies</a></li>
+                      <li role="presentation"><a href="#about">About</a></li>
+                      <li role="presentation"><a href="#meet">Wishlist</a></li>
+                      <li role="presentation"><a href="#contact">Contact</a></li>
+                      {% if request.session.loginid %}
+                        <li role="presentation" class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: #ec008c; font-weight: bold;">
+                            <i class="fa fa-user"></i> Profile <b class="caret"></b>
+                          </a>
+                          <ul class="dropdown-menu" style="background: rgba(0,0,0,0.8); border: 1px solid #ec008c;">
+                            <li><a href="{% url 'profile' %}" style="color: white;">View Profile</a></li>
+                            <li><a href="{% url 'preferences' %}" style="color: white;">Preferences</a></li>
+                            <li><a href="{% url 'view_watchlist' %}" style="color: white;">My Watchlist</a></li>
+                            <li class="divider"></li>
+                            <li><a href="/guestapp/logout" style="color: #fc6767;">Logout</a></li>
+                          </ul>
+                        </li>
+                      {% else %}
+                        <li role="presentation"><a href="{% url 'loginhome' %}" style="color: #fc6767; font-weight: bold;">Login</a></li>
+                        <li role="presentation"><a href="{% url 'registration' %}" style="color: #ec008c; font-weight: bold;">Register</a></li>
+                      {% endif %}
+                    </ul>
+                </div> <!-- /.container -->
+            </div> <!-- /.navigation-bar -->
+            <div class="header-description text-center">
+                <div class="header-content wow bounce animated">
+                    <h1 class="heading">CINE MATCH</h1>
+                    <p class="heading-subtitle">
+                         SEARCH MOVIE HERE
+                    </p> 
+                </div> <!-- /.header-content -->   
+            
+                <div class="wow zoomIn button-down" data-wow-duration="1s" data-wow-offset="100">
+                  <div class="wow tada" data-wow-delay="1s" data-wow-duration="1s">
+                    <div class="wow rubberBand" data-wow-delay="2000ms" data-wow-duration="1s">
+                      <div class="wow pulse" data-wow-delay="300ms" data-wow-iteration="infinite" data-wow-duration="2s">
+                        <a href="#service" title="Go down">
+                          <img src="{% static 'user/images/button_downr.png' %}" alt="MaterialUp" class="center">
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div> <!-- /.header-description -->
+        </section> <!-- /#header -->

@@ -1,0 +1,179 @@
+{% load static %}
+{% include 'user/header.html' %}
+
+        <!-- Call to Action Section -->
+        <section class="cta-section" style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, rgba(236, 0, 140, 0.1), rgba(252, 103, 103, 0.1)); margin: 20px 0;">
+            <div class="container">
+                <h3 class="custom-white" style="margin-bottom: 20px; font-size: 18px;">New to CineMatch?</h3>
+                <div>
+                    <a href="{% url 'loginhome' %}" class="btn" style="display: inline-block; padding: 12px 30px; background: linear-gradient(to right, #fc6767, #ec008c); color: white; text-decoration: none; border-radius: 5px; margin-right: 10px; margin-bottom: 10px; font-weight: bold; transition: all 0.3s ease;">
+                        <i class="fa fa-sign-in"></i> LOGIN
+                    </a>
+                    <a href="{% url 'registration' %}" class="btn" style="display: inline-block; padding: 12px 30px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; margin-bottom: 10px; font-weight: bold; transition: all 0.3s ease;">
+                        <i class="fa fa-user-plus"></i> REGISTER NOW
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Movie Filter Section -->
+        <section class="quick-filter" id="quick-filter" style="padding: 40px 20px; background: rgba(0,0,0,0.4); margin-bottom: 30px;">
+            <div class="container">
+                <h3 class="section-title wow bounceInRight animated custom-white" style="text-align: center; margin-bottom: 40px;">Find Movies Your Way</h3>
+                <form method="GET" action="{% url 'browse_movies' %}" id="filter-form">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div style="background: rgba(236, 0, 140, 0.1); padding: 25px; border-radius: 10px; border-left: 4px solid #ec008c;">
+                                <label class="custom-purple" style="font-weight: bold; display: block; margin-bottom: 15px;">
+                                    <i class="fa fa-film"></i> Select Genre
+                                </label>
+                                <select name="genre" id="genre-select" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ec008c; background: rgba(0,0,0,0.5); color: white; font-size: 14px;">
+                                    <option value="">-- All Genres --</option>
+                                    {% for genre in genres %}
+                                        <option value="{{ genre.genreid }}">{{ genre.genrename }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div style="background: rgba(252, 103, 103, 0.1); padding: 25px; border-radius: 10px; border-left: 4px solid #fc6767;">
+                                <label class="custom-purple" style="font-weight: bold; display: block; margin-bottom: 15px;">
+                                    <i class="fa fa-language"></i> Select Language
+                                </label>
+                                <select name="language" id="language-select" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #fc6767; background: rgba(0,0,0,0.5); color: white; font-size: 14px;">
+                                    <option value="">-- All Languages --</option>
+                                    {% for language in languages %}
+                                        <option value="{{ language.languagename }}">{{ language.languagename }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="display: flex; align-items: flex-end;">
+                            <button type="submit" style="width: 100%; padding: 35px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; font-size: 16px;">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+                           
+    
+    <!--== 6. About Us ==-->
+    
+        <section id="about" class="about">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="about-table">
+                         <div class="col-md-4 col-sm-12 about-table-cell">
+                            <div class="about-content">
+                                <div class="wrapper">
+                                    <h2 class="section-title wow bounceInRight animated">about cinematch</h2>
+                                    <p class="section-paragraph wow pulse animated">
+                                    CineMatch helps users discover movies they’ll love by analyzing their preferences, viewing history, and ratings. It suggests personalized movie recommendations using smart algorithms, making it easier to find the right movie at the right time. The system enhances user experience by saving time and offering relevant, tailored movie choices. 🎬                                    </p> <!-- /.section-paragraph -->
+                                </div> <!-- /.wrapper --> 
+                            </div> <!-- /.about-content -->
+                        </div>
+                        <div class="col-md-8 col-sm-12 about-table-cell" style="background:url(images/part_3_bg.jpg);background-size:cover;">
+                        </div>
+                    </div> <!-- /.about-table -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container-fluid -->
+        </section> <!-- /#about -->
+    
+    <!--== 8. Meet With Us ==-->
+        <section class="meet" id="meet">
+            <div class="container">  
+                <div class="wrapper">
+                    <h2 class="section-title block-title wow animated bounceInRight animated custom-black">About us</h2>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="meet-item-bg wow pulse animated text-center">
+                                <div class="meet-item text-center">
+                                    <div class="meet-single-item wow bounceInDown animated">
+                                    <img src="{% static 'user/images/m_01.jpg' %}" alt="Meet">
+                                        <div class="meet-icons">
+                                            <a href="#"><i class="custom-icon fa fa-twitter"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-facebook"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-google-plus"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-linkedin"></i></a>
+                                        </div> <!-- /.meet-icons -->
+                                    </div> <!-- /.meet-single-item -->
+                                    <div class="meet-item-content custom-white wow bounceInUp animated">
+                                        <h6 class="meet-item-name">Anagha reghukumar</h6>
+                                        <p class="meet-item-sub custom-black">founder</p>
+                                        <p class="meet-item-about">
+                                            Founder of the CineMatch website.
+                                        </p>
+                                    </div> <!-- /.meet-item-content -->
+                                </div> <!-- /.meet-item -->
+                            </div> <!-- /.meet-item-bg -->
+                        </div> <!-- /.col-sm-4 -->
+                        <div class="col-sm-4">
+                            <div class="meet-item-bg wow pulse animated text-center">
+                                <div class="meet-item text-center">
+                                    <div class="meet-single-item wow bounceInDown animated">
+                                    <img src="{% static 'user/images/m_02.jpg' %}" alt="Meet">
+                                        <div class="meet-icons">
+                                            <a href="#"><i class="custom-icon fa fa-twitter"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-facebook"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-google-plus"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-linkedin"></i></a>
+                                        </div> <!-- /.meet-icons -->
+                                    </div> <!-- /.meet-single-item -->
+                                    <div class="meet-item-content custom-white wow bounceInUp animated">
+                                        <h6 class="meet-item-name">Akshya KR</h6>
+                                        <p class="meet-item-sub custom-black">founder</p>
+                                        <p class="meet-item-about">
+                                            Founder of the CineMatch website.
+                                        </p>
+                                    </div> <!-- /.meet-item-content -->
+                                </div> <!-- /.meet-item -->
+                            </div> <!-- /.meet-item-bg -->
+                        </div> <!-- /.col-sm-4 -->
+                        <div class="col-sm-4">
+                            <div class="meet-item-bg wow pulse animated text-center">
+                                <div class="meet-item text-center">
+                                    <div class="meet-single-item wow bounceInDown animated">
+                                    <img src="{% static 'user/images/m_03.jpg' %}" alt="Meet">
+                                        <div class="meet-icons">
+                                            <a href="#"><i class="custom-icon fa fa-twitter"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-facebook"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-google-plus"></i></a>
+                                            <a href="#"><i class="custom-icon fa fa-linkedin"></i></a>
+                                        </div> <!-- /.meet-icons -->
+                                    </div> <!-- /.meet-single-item -->
+                                    <div class="meet-item-content custom-white wow bounceInUp animated">
+                                        <h6 class="meet-item-name">Ashiqe Salim</h6>
+                                        <p class="meet-item-sub custom-black">co-founder</p>
+                                        <p class="meet-item-about">
+                                            Co-founder of the CineMatch website.
+                                        </p>
+                                    </div> <!-- /.meet-item-content -->
+                                </div> <!-- /.meet-item -->
+                            </div> <!-- /.meet-item-bg -->
+                        </div> <!-- /.col-sm-4 -->
+                    </div> <!-- /.row -->
+                </div> <!-- /.wrapper -->
+            </div> <!-- /.container -->
+        </section> <!-- /#meet -->
+
+                                        </div> <!-- /.row -->
+                                    </div> <!-- /.item -->
+                                </div> <!-- /#owl-demo -->   
+                            </div> <!-- /.col-md-6 -->
+                            <div class="col-md-6 clients-logo">
+                                <a href="#"><img src="{% static 'user/images/logo_01.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                                <a href="#"><img src="{% static 'user/images/logo_02.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                                <a href="#"><img src="{% static 'user/images/logo_03.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                                <a href="#"><img src="{% static 'user/images/logo_04.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                                <a href="#"><img src="{% static 'user/images/logo_05.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                                <a href="#"><img src="{% static 'user/images/logo_06.png' %}" alt="logo-test" class="img-responsive img-logo"></a>
+                            </div> <!-- /.col-md-6 -->
+                        </div> <!-- /.row -->
+                    </div> <!-- /.testimonial-content -->
+                </div> <!-- /.container -->
+            </div> <!-- /.wrapper -->
+        </section> <!-- /#testimonial -->
+{% include 'user/footer.html' %}

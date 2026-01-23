@@ -1,0 +1,272 @@
+{% load static %}
+{% include 'admin/header.html' %}
+
+<div class="container-fluid pt-4 px-4">
+    <!-- Page Header -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h4 class="mb-2">Monthly Reports</h4>
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-calendar"></i> Performance Analysis & Statistics
+                        </p>
+                    </div>
+                    <a href="{% url 'adminindex' %}" class="btn btn-primary">
+                        <i class="fa fa-arrow-left"></i> Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Statistics -->
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-users fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Users</p>
+                    <h6 class="mb-0">{{ total_users }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-film fa-3x text-success"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Movies</p>
+                    <h6 class="mb-0">{{ total_movies }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-heart fa-3x text-danger"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Watchlist Items</p>
+                    <h6 class="mb-0">{{ total_watchlist_items }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-star fa-3x text-warning"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Total Reviews</p>
+                    <h6 class="mb-0">{{ total_reviews }}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Data Tables -->
+    <div class="row g-4 mb-4">
+        <!-- Users Report -->
+        <div class="col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">
+                    <i class="fa fa-users"></i> Monthly User Registration
+                </h6>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Month</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for month, count in monthly_users.items %}
+                                <tr>
+                                    <td>{{ month }}</td>
+                                    <td>
+                                        <span class="badge bg-primary">{{ count }}</span>
+                                    </td>
+                                    <td>
+                                        {% if total_users > 0 %}
+                                            {% widthratio count total_users 100 %}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movies Report -->
+        <div class="col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">
+                    <i class="fa fa-film"></i> Monthly Movies Added
+                </h6>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Month</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for month, count in monthly_movies.items %}
+                                <tr>
+                                    <td>{{ month }}</td>
+                                    <td>
+                                        <span class="badge bg-success">{{ count }}</span>
+                                    </td>
+                                    <td>
+                                        {% if total_movies > 0 %}
+                                            {% widthratio count total_movies 100 %}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Tables -->
+    <div class="row g-4">
+        <!-- Watchlist Report -->
+        <div class="col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">
+                    <i class="fa fa-heart"></i> Monthly Watchlist Activity
+                </h6>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Month</th>
+                                <th scope="col">Items Added</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for month, count in monthly_watchlist.items %}
+                                <tr>
+                                    <td>{{ month }}</td>
+                                    <td>
+                                        <span class="badge bg-danger">{{ count }}</span>
+                                    </td>
+                                    <td>
+                                        {% if total_watchlist_items > 0 %}
+                                            {% widthratio count total_watchlist_items 100 %}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Report -->
+        <div class="col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">
+                    <i class="fa fa-star"></i> Monthly Review Activity
+                </h6>
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">
+                                <th scope="col">Month</th>
+                                <th scope="col">Reviews</th>
+                                <th scope="col">Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for month, count in monthly_reviews.items %}
+                                <tr>
+                                    <td>{{ month }}</td>
+                                    <td>
+                                        <span class="badge bg-warning">{{ count }}</span>
+                                    </td>
+                                    <td>
+                                        {% if total_reviews > 0 %}
+                                            {% widthratio count total_reviews 100 %}%
+                                        {% else %}
+                                            0%
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="row g-4 mt-4">
+        <div class="col-12">
+            <div class="bg-light rounded p-4">
+                <h6 class="mb-3">
+                    <i class="fa fa-info-circle"></i> Report Summary
+                </h6>
+                <div class="row">
+                    <div class="col-md-3">
+                        <p class="mb-2">
+                            <strong>Peak User Month:</strong><br>
+                            {% for month, count in monthly_users.items %}
+                                {% if count == max_users %}
+                                    <span class="badge bg-primary">{{ month }} ({{ count }})</span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-2">
+                            <strong>Peak Movie Month:</strong><br>
+                            {% for month, count in monthly_movies.items %}
+                                {% if count == max_movies %}
+                                    <span class="badge bg-success">{{ month }} ({{ count }})</span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-2">
+                            <strong>Peak Watchlist Month:</strong><br>
+                            {% for month, count in monthly_watchlist.items %}
+                                {% if count == max_watchlist %}
+                                    <span class="badge bg-danger">{{ month }} ({{ count }})</span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-2">
+                            <strong>Peak Review Month:</strong><br>
+                            {% for month, count in monthly_reviews.items %}
+                                {% if count == max_reviews %}
+                                    <span class="badge bg-warning">{{ month }} ({{ count }})</span>
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'admin/footer.html' %}

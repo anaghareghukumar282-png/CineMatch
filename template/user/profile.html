@@ -1,0 +1,152 @@
+{% load static %}
+{% include 'user/header.html' %}
+
+<section class="profile-section" style="min-height: 100vh; padding: 60px 20px 40px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="profile-card" style="background: rgba(0,0,0,0.6); border-radius: 15px; padding: 40px; box-shadow: 0 8px 32px rgba(236, 0, 140, 0.3); border: 1px solid rgba(252, 103, 103, 0.3);">
+                    
+                    <!-- Profile Header -->
+                    <div class="profile-header text-center" style="margin-bottom: 40px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 20px;">
+                        <div class="profile-avatar" style="margin-bottom: 20px;">
+                            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #ec008c, #fc6767); display: inline-flex; align-items: center; justify-content: center; font-size: 50px; color: white;">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                        <h2 class="custom-white" style="margin: 15px 0; font-size: 28px;">
+                            {{ user.username }}
+                        </h2>
+                        <p class="custom-purple" style="margin: 5px 0;">User Profile</p>
+                    </div>
+
+                    <!-- Profile Information -->
+                    <div class="profile-information">
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-6">
+                                <div class="info-box" style="background: rgba(236, 0, 140, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ec008c;">
+                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Username</p>
+                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.username }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box" style="background: rgba(252, 103, 103, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fc6767;">
+                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Email</p>
+                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.email }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-6">
+                                <div class="info-box" style="background: rgba(236, 0, 140, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ec008c;">
+                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">User ID</p>
+                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.userid }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-box" style="background: rgba(252, 103, 103, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fc6767;">
+                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Account Type</p>
+                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">
+                                        <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 5px 15px; border-radius: 20px;">Regular User</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics -->
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-12">
+                                <h4 class="custom-purple" style="margin-bottom: 20px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 10px;">
+                                    <i class="fa fa-bar-chart"></i> Your Statistics
+                                </h4>
+                            </div>
+                        </div>
+
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-4">
+                                <div class="stat-box text-center" style="background: rgba(236, 0, 140, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(236, 0, 140, 0.3);">
+                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
+                                        {{ watchlist_count }}
+                                    </p>
+                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Movies in Watchlist</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-box text-center" style="background: rgba(252, 103, 103, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(252, 103, 103, 0.3);">
+                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
+                                        {{ reviews_count }}
+                                    </p>
+                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Reviews Given</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-box text-center" style="background: rgba(236, 0, 140, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(236, 0, 140, 0.3);">
+                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
+                                        {{ recommendations_count }}
+                                    </p>
+                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Recommendations</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preferences Summary -->
+                        {% if user_preferences %}
+                        <div class="row" style="margin-bottom: 30px;">
+                            <div class="col-md-12">
+                                <h4 class="custom-purple" style="margin-bottom: 20px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 10px;">
+                                    <i class="fa fa-heart"></i> Your Preferences
+                                </h4>
+                                <div class="preferences-box" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px;">
+                                    {% if user_preferences.preferred_genres %}
+                                        <p class="custom-white" style="margin-bottom: 10px;"><strong>Preferred Genres:</strong></p>
+                                        <div style="margin-bottom: 15px;">
+                                            {% for genre in user_preferences.preferred_genres %}
+                                                <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 5px 12px; border-radius: 15px; margin-right: 8px; display: inline-block; margin-bottom: 5px;">
+                                                    {{ genre }}
+                                                </span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    {% if user_preferences.preferred_languages %}
+                                        <p class="custom-white" style="margin-bottom: 10px; margin-top: 15px;"><strong>Preferred Languages:</strong></p>
+                                        <div>
+                                            {% for language in user_preferences.preferred_languages %}
+                                                <span class="badge" style="background: linear-gradient(to right, #fc6767, #ec008c); padding: 5px 12px; border-radius: 15px; margin-right: 8px; display: inline-block; margin-bottom: 5px;">
+                                                    {{ language }}
+                                                </span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Action Buttons -->
+                        <div class="row" style="margin-top: 40px; border-top: 2px solid rgba(236, 0, 140, 0.5); padding-top: 30px;">
+                            <div class="col-md-4">
+                                <a href="{% url 'preferences' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
+                                    <i class="fa fa-cog"></i> Preferences
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'view_watchlist' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #fc6767, #ec008c); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
+                                    <i class="fa fa-heart"></i> Watchlist
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{% url 'userhome' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
+                                    <i class="fa fa-arrow-left"></i> Home
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include 'user/footer.html' %}

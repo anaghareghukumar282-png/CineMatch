@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+       
+
+
+        /* Container Styling */
+        .form-container {
+            background-color:white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Form Title */
+        .form-title {
+            text-align: center;
+            font-size: 26px;
+            color: #4a90e2;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Input and Select Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-control {
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px black;
+            width: 100%;
+            transition: border-color 0.3s;
+        }
+
+        /* Focus Effect on Input Fields */
+        .form-control:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        /* Submit Button */
+        .btnRegister {
+            background-color: #4a90e2;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        /* Button Hover Effect */
+        .btnRegister:hover {
+            background-color: #357ab7;
+        }
+
+        /* Placeholder Text Styling */
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 576px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .form-title {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <br><br>
+<div class="col-md-6 mx-auto">
+    <form action="{% url 'userreg_process' %}" method="POST" class="form-container">
+        {% csrf_token %}
+        
+        <h2 class="form-title">Customer Registration</h2>
+
+        <!-- Name -->
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Customer Name" name="customername" id="customername" required>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Enter Username" name="username" id="username" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Enter Password" name="password" id="password" required>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <input type="submit" class="btnRegister" value="Register">
+        </div>
+    </form>
+    <br><br>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+{% load static %}
+{% include 'admin/header.html' %}
+            <!-- Form Start -->
+                <div class="row g-6" style="margin-left:250px;">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">GENRE Registration</h6>
+                            <form method="Post" action="{% url 'genre_insert' %}">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Enter Genre Name</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" name="genrename" required>
+                                    <div id="emailHelp" class="form-text">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+{% include 'admin/footer.html' %}

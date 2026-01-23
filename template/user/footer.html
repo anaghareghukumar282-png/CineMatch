@@ -1,0 +1,92 @@
+
+{% load static %}
+
+    <!--== 10. Contact With Us ==-->
+
+        <section class="contact" id="contact">
+            <div class="contact-content">
+                <div class="wrapper">
+                    <div class="container">
+                        <h2 class="section-title wow bounceInRight animated custom-black">write your review</h2>
+                        <div class="row">
+                            <div class="col-sm-6 clearfix">
+                                <p class="address wow pulse animated">
+                                    House-Thiruvalla,Pathanamthitta <br>
+                                    <strong>Call: </strong>+91 8075506646 <br>
+                                    <strong>Fax: </strong>+91 9961480421 <br>
+                                    <strong>E-mail: </strong>+anaghareghukumar282@gmail.com <br>
+                                    
+                                </p>
+                                <ul class="social-icons text-center">
+                                    <li class="wow animated fadeInLeft facebook animated">
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                    </li>
+                                    <li class="wow animated fadeInRight twitter animated">
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                    </li>
+                                    <li class="wow animated fadeInLeft linkedin animated">
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                    </li>
+                                    <li class="wow animated fadeInRight googleplus animated">
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </li>
+                                    <li class="wow animated fadeInLeft github animated">
+                                        <a href="#"><i class="fa fa-github"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <form class="_form-inline row" id="contact-form" name="contact" method="post" action="contact.php">
+                                    <div class="form-group custom-form-group col-sm-6">
+                                        <label class="sr-only" for="name" id="name"><span class="required">*</span>Name</label>
+                                        <input type="text" class="form-control custom-form-control wow bounceInLeft animated" name="name" id="name" placeholder="Enter your name" required>
+                                    </div>
+                                    
+                                    <div class="form-group custom-form-group col-sm-6">
+                                        <label class="sr-only" for="email" id="email"><span class="required">*</span>Email</label>
+                                        <input type="email" class="form-control custom-form-control wow bounceInRight animated" id="email" name="email" placeholder="Enter your email" required>
+                                    </div>
+                                    <div class="form-group custom-form-group col-sm-12">
+                                        <label class="sr-only" for="text-massage"><span class="required">*</span>Massage</label>
+                                        <textarea  class="form-control custom-form-control wow bounceInUp animated" id="text-massage" name="text-massage" rows="3" placeholder="Write something" required></textarea>
+                                    </div>
+
+                                    <button type="submit" class="pull-right btn btn-default submit-button custom-white wow bounceInLeft animated" id="submit" name="submit" value="Send">Say Hello</button>
+                                </form>
+                                <div id="success">
+                                    <span>
+                                        <p>Your message was sent succssfully! I will be in touch as soon as I can.</p>
+                                    </span>
+                                </div>
+
+                                <div id="error">
+                                    <span>
+                                        <p>Something went wrong, try refreshing and submitting the form again.</p>
+                                     </span>
+                                </div>
+                            </div> 
+                        </div> <!-- /.row -->
+                    </div> <!-- /.container -->
+                </div> <!-- /.wrapper -->
+                <footer class="custom-red text-center wow flip animated">
+                    &copy;Copyright <a href="#"><strong>CineMatch Link</strong></a> 2026. Theme by <a href="http://www.themewagon.com"><strong>CineMatch</strong></a>
+                </footer>
+            </div> <!-- /.contact-content -->
+        </section> <!-- /#contact -->
+        <a href="#header" id="back-to-top" class="top"><i class="fa fa-chevron-up"></i></a>
+    
+        
+
+
+    <script src="{% static 'user/js/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'user/js/jquery.circlechart.js' %}"></script>
+    <script src="{% static 'user/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'user/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'user/js/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'user/js/wow.min.js' %}"></script>
+    <script src="{% static 'user/js/jquery.validate.js' %}"></script>
+    <script src="{% static 'user/nivo-lightbox/nivo-lightbox.min.js' %}"></script>
+    <script src="{% static 'user/js/script.js' %}"></script>
+
+  </body>
+</html>

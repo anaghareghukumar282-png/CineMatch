@@ -1,0 +1,151 @@
+{% load static %}
+{% include 'admin/header.html' %}
+
+<div class="container-fluid pt-4 px-4">
+    <!-- User Profile Header -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="bg-light rounded p-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h4 class="mb-2">{{ user.username }}</h4>
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-envelope"></i> {{ user.email }}
+                        </p>
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-user-circle"></i> User ID: {{ user.userid }}
+                        </p>
+                    </div>
+                    <a href="{% url 'view_users' %}" class="btn btn-primary">
+                        <i class="fa fa-arrow-left"></i> Back to Users
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-heart fa-3x text-primary"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Watchlist Items</p>
+                    <h6 class="mb-0">{{ watchlist_count }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-star fa-3x text-warning"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Reviews Given</p>
+                    <h6 class="mb-0">{{ reviews_count }}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                <i class="fa fa-film fa-3x text-success"></i>
+                <div class="ms-3">
+                    <p class="mb-2">Account Type</p>
+                    <h6 class="mb-0">
+                        <span class="badge bg-success">{{ login_obj.usertype }}</span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User's Watchlist -->
+    <div class="row g-4 mb-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">
+                        <i class="fa fa-heart"></i> Watchlist ({{ watchlist_count }} items)
+                    </h6>
+                </div>
+
+                {% if watchlist_items %}
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Movie Title</th>
+                                    <th scope="col">Date Added</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in watchlist_items %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ item.moviename }}</td>
+                                        <td>{{ item.addeddate|date:"d M, Y" }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-4">
+                        <i class="fa fa-inbox"></i> No watchlist items
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- User's Reviews -->
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">
+                        <i class="fa fa-star"></i> Reviews ({{ reviews_count }} reviews)
+                    </h6>
+                </div>
+
+                {% if reviews %}
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">#</th>
+                                    <th scope="col">Movie</th>
+                                    <th scope="col">Rating</th>
+                                    <th scope="col">Review Text</th>
+                                    <th scope="col">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for review in reviews %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ review.movieid.moviename }}</td>
+                                        <td>
+                                            <span class="badge bg-warning">
+                                                {{ review.rating }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small>{{ review.reviewtext|truncatewords:10 }}</small>
+                                        </td>
+                                        <td>{{ review.reviewdate|date:"d M, Y" }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center py-4">
+                        <i class="fa fa-inbox"></i> No reviews given
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'admin/footer.html' %}

@@ -1,0 +1,32 @@
+{% include 'admin/header.html' %} 
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-light rounded h-100 p-4">
+                            <h6 class="mb-4">LANGUAGE LIST</h6>
+                            <table class="table">
+                            <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>LANGUAGE NAME</th>
+                          <th>EDIT</th>
+                          <th>DELETE</th>
+                        </tr>
+                      </thead>
+                                <tbody>
+                                    {% for l in lang %}
+                                    <tr>
+                                        
+                                        <td>{{forloop.counter}}</td>
+                                       <td>{{l.languagename}}</td>
+                                        <td><a href="{% url 'editlanguage' languageid=l.languageid %}"
+                                            onclick="return confirm('Do you want to edit?')" class="btn btn-secondary">Edit</a></td>
+                                        <td><a href="{% url 'deletelanguage' languageid=l.languageid %}"
+                                            onclick="return confirm('Do you want to delete?')" class="btn btn-danger">Delete</a></td>    
+                                        
+                                    </tr>
+                                   {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% include 'admin/footer.html' %}
