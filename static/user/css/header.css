@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  background: #f5f5f5;
+  color: #242424;
+}
+
+/* Header */
+.dev-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e5e5e5;
+  height: 56px;
+}
+
+.dev-header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Logo */
+.dev-logo {
+  font-weight: 900;
+  font-size: 20px;
+  text-decoration: none;
+  color: #000;
+}
+
+.dev-logo span {
+  color: #3b49df;
+}
+
+/* Search */
+.dev-search input {
+  width: 260px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #d6d6d6;
+}
+
+.dev-search input:focus {
+  outline: none;
+  border-color: #3b49df;
+}
+
+/* Nav */
+.dev-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dev-nav a {
+  text-decoration: none;
+  font-size: 14px;
+  color: #404040;
+}
+
+.dev-nav a:hover {
+  color: #3b49df;
+}
+
+/* Buttons */
+.login {
+  font-weight: 600;
+}
+
+.register {
+  background: #3b49df;
+  color: #fff !important;
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+
+/* Profile */
+.dev-profile {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar {
+  background: #e5e5e5;
+  border-radius: 50%;
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.dev-dropdown {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.dev-dropdown a {
+  display: block;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.dev-dropdown a:hover {
+  background: #f5f5f5;
+}
+
+.dev-dropdown hr {
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.logout {
+  color: #d64545;
+}
+
+/* Hover dropdown */
+.dev-profile:hover .dev-dropdown {
+  display: block;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #6b6b6b;
+}
+

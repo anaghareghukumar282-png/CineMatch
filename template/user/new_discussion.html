@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Start a New Discussion · CineMatch</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- GitHub-like fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+  body {
+    margin: 0;
+    background-color: #ffffff;
+    color: #24292f;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 32px;
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #1f2328;
+  }
+
+  .card {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 24px;
+  }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #1f2328;
+  }
+
+  .required {
+    color: #cf222e;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    color: #24292f;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+  }
+
+  textarea {
+    min-height: 220px;
+    resize: vertical;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #0969da;
+    box-shadow: 0 0 0 1px #0969da;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .editor-tabs {
+    display: flex;
+    border-bottom: 1px solid #d0d7de;
+    margin-bottom: 12px;
+  }
+
+  .editor-tabs span {
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #57606a;
+  }
+
+  .editor-tabs .active {
+    border-bottom: 2px solid #0969da;
+    color: #0969da;
+    font-weight: 500;
+  }
+
+  .sidebar .card {
+    padding: 16px;
+  }
+
+  .sidebar h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1f2328;
+  }
+
+  .sidebar a {
+    color: #0969da;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .sidebar a:hover {
+    text-decoration: underline;
+  }
+
+  .info-box {
+    margin-top: 16px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 13px;
+    color: #57606a;
+    background-color: #ffffff;
+  }
+
+  .emoji {
+    font-size: 18px;
+    margin-right: 6px;
+  }
+</style>
+
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- MAIN FORM -->
+    <div>
+      <h1>Start a new discussion</h1>
+
+      <div class="card">
+
+        <!-- TITLE -->
+        <div class="form-group">
+          <label>Add a title</label>
+          <input type="text" placeholder="Title">
+        </div>
+
+        <!-- TAGS (NEW FIELD) -->
+        <div class="form-group">
+          <label>Tags</label>
+          <input type="text" placeholder="eg: Marvel, Sci-Fi, Nolan, Action">
+        </div>
+
+        <!-- TOPIC AREA -->
+        <div class="form-group">
+          <label>Select Topic Area <span class="required">*</span></label>
+          <select>
+            <option>Question</option>
+            <option>Discussion</option>
+            <option>Announcement</option>
+            <option>Recommendation</option>
+          </select>
+        </div>
+
+        <!-- BODY -->
+        <div class="form-group">
+          <label>Body <span class="required">*</span></label>
+
+          <div class="editor-tabs">
+            <span class="active">Write</span>
+            <!-- <span>Preview</span> -->
+          </div>
+
+          <textarea placeholder="Start your discussion!"></textarea>
+        </div>
+
+        <small style="color:#8b949e;">Markdown is supported</small>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="card">
+        <h3>Helpful resources</h3>
+        <a href="#">Code of conduct</a>
+        <a href="#">Community Guidelines</a>
+      </div>
+
+      <!-- <div class="info-box">
+        <span class="emoji">👋</span>
+        It looks like this is your first time starting a discussion in this community!
+        <br><br>
+        This is a community we build together. Please be welcoming and open minded.
+      </div> -->
+
+    </div>
+
+  </div>
+
+</body>
+</html>

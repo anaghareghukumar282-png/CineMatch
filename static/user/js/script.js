@@ -26,8 +26,6 @@ $(document).ready(function($) {
 	    $(this).toggleClass('fa-bars fa-times-circle');
 	    $(".nav").toggleClass('hide show');
 	});
-/*=================================
-||			Radial Progressive Bar
 ==================================*/
 	$('.demo-4').percentcircle({
 	animate : true,

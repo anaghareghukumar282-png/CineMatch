@@ -33,6 +33,9 @@ class tbl_movie_genre(models.Model):
 class tbl_language(models.Model):
     languageid=models.AutoField(primary_key=True)
     languagename=models.CharField(max_length=100)
+    iso_639_1 = models.CharField(max_length=10, default='', blank=True)
+
+
 
 
 

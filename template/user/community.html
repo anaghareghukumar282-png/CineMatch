@@ -1,0 +1,251 @@
+{% load static %}
+{% include 'user/community_header.html' %}
+
+<link rel="stylesheet" href="{% static 'user/css/community.css' %}">
+
+<div class="dev-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="dev-sidebar">
+    <nav class="sidebar-nav">
+      <a href="/userapp/browse-movies/">🏠 Home</a>
+      <a href="/userapp/browse-movies/">🎬 Movies</a>
+      <a href="{% url 'view_watchlist' %}">📺 Watch History</a>
+      <a href="{% url 'view_watchlist' %}">❤️ Wishlist</a>
+      <a href="{% url 'view_discussions' %}">💬 Discussion</a>
+      <a class="active" href="{% url 'view_community' %}">👨‍👦‍👦 Community</a>
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <span>Community Tags</span>
+      </div>
+
+      <ul class="tag-list">
+        <li>#Action</li>
+        <li>#Drama</li>
+        <li>#Marvel</li>
+        <li>#SciFi</li>
+        <li>#Animation</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dev-main">
+
+    <!-- TOP BAR -->
+    <div class="filter-tabs">
+      <button class="active">Communities</button>
+      <button>My Groups</button>
+
+      <button class="create-btn">＋ Create Community</button>
+    </div>
+
+    <!-- COMMUNITY GRID -->
+    <section class="community-feed">
+
+      {% for community in communities %}
+      <!-- Community Card -->
+      <article class="community-card{% if community.user_is_member %} joined{% endif %}">
+        <div class="community-header">
+          {% if community.community_type == 'Genre-based' %}
+            🎭
+          {% elif community.community_type == 'Movie-based' %}
+            🎬
+          {% else %}
+            👥
+          {% endif %}
+        </div>
+
+        <div class="community-content">
+          <h3>{{ community.name }}</h3>
+          <p>{{ community.description|truncatechars:80 }}</p>
+
+          <div class="tags">
+            {% if community.related_genre %}
+              <span>#{{ community.related_genre.genrename }}</span>
+            {% endif %}
+            {% if community.related_movie %}
+              <span>#{{ community.related_movie.moviename|truncatechars:20 }}</span>
+            {% endif %}
+            <span>#{{ community.community_type }}</span>
+          </div>
+
+          <div class="community-meta">
+            <span>👥 {{ community.member_count }} members</span>
+            <span>📅 {{ community.created_date|date:"M d, Y" }}</span>
+            <span>📅 {{ community.communityid }}</span>
+          </div>
+
+          {% if community.user_is_member %}
+            <a href="{% url 'community_chat' community.communityid %}" class="chat-btn">Open Chat</a>
+          {% else %}
+            <a href="{% url 'join_community' community.communityid %}" class="join-btn">Join Group</a>
+          {% endif %}
+        </div>
+      </article>
+      {% empty %}
+      <div class="no-communities">
+        <p>No communities available yet. Be the first to create one!</p>
+      </div>
+      {% endfor %}
+
+    </section>
+
+  </main>
+</div>
+
+<!-- Create Community Modal -->
+<div class="modal fade" id="createCommunityModal" tabindex="-1" role="dialog" aria-labelledby="createCommunityModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createCommunityModalLabel">Create New Community</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="POST" action="{% url 'create_community' %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="communityName">Community Name</label>
+            <input type="text" class="form-control" id="communityName" name="name" placeholder="Enter community name" required>
+          </div>
+          <div class="form-group">
+            <label for="communityDescription">Description</label>
+            <textarea class="form-control" id="communityDescription" name="description" rows="3" placeholder="Describe your community" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="communityType">Community Type</label>
+            <select class="form-control" id="communityType" name="community_type" required>
+              <option value="">Select type</option>
+              <option value="General">General</option>
+              <option value="Genre-based">Genre-based</option>
+              <option value="Movie-based">Movie-based</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="relatedGenre">Related Genre (Optional)</label>
+            <select class="form-control" id="relatedGenre" name="related_genre_id">
+              <option value="">Select genre</option>
+              {% for genre in genres %}
+                <option value="{{ genre.genreid }}">{{ genre.genrename }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="relatedMovie">Related Movie (Optional)</label>
+            <select class="form-control" id="relatedMovie" name="related_movie_id">
+              <option value="">Select movie</option>
+              {% for movie in movies %}
+                <option value="{{ movie.movieid }}">{{ movie.moviename }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Community</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% include 'user/footer.html' %}
+
+<script>
+  // Show modal when Create Community button is clicked
+  document.querySelector('.create-btn').addEventListener('click', function() {
+    $('#createCommunityModal').modal('show');
+  });
+</script>
+
+<style>
+    .create-btn {
+        background-color: #ffffff;
+        color: rgb(72, 86, 245);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 20px;
+        border: 1px solid rgb(72, 86, 245);
+    }
+
+    /* Modal styling to match design */
+    .modal-content {
+        border-radius: 8px;
+        border: 1px solid #e5e5e5;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #3b49df, #5865f2);
+        color: white;
+        border-bottom: none;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .modal-header .close {
+        color: white;
+        opacity: 0.8;
+    }
+
+    .modal-header .close:hover {
+        color: white;
+        opacity: 1;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .form-group label {
+        font-weight: 500;
+        margin-bottom: 6px;
+        color: #1f2328;
+    }
+
+    .form-control {
+        border: 1px solid #d0d7de;
+        border-radius: 6px;
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+
+    .form-control:focus {
+        border-color: #0969da;
+        box-shadow: 0 0 0 1px #0969da;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #e5e5e5;
+        padding: 16px 20px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-primary {
+        background-color: #3b49df;
+        border-color: #3b49df;
+    }
+
+    .btn-primary:hover {
+        background-color: #5865f2;
+        border-color: #5865f2;
+    }
+
+    .no-communities {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 40px;
+        color: #666;
+        font-size: 16px;
+    }
+</style>

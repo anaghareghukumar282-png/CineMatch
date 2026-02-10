@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'adminapp',
     'guestapp',
     'userapp',
+
 ]
 
 MIDDLEWARE = [
@@ -74,18 +76,20 @@ TEMPLATES = [
 WSGI_APPLICATION = 'cinematch.wsgi.application'
 
 
+
+
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_cinematch',
-        'USER':'root',
-        'PASSWORD':'',
-        'HOST':'localhost',  
-        'PORT':'',
-        }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'movie_db',      # Database name
+        'USER': 'postgres',             # Your PostgreSQL username
+        'PASSWORD': 'Hiran@2001',    # Your PostgreSQL password
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
 
 

@@ -1,0 +1,131 @@
+body {
+  background: #f5f5f5;
+}
+
+/* Layout */
+.dev-layout {
+  max-width: 1280px;
+  margin: 72px auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  padding: 0 16px;
+}
+
+/* Sidebar */
+.sidebar-nav a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+}
+
+.sidebar-nav a.active,
+.sidebar-nav a:hover {
+  background: #eaeaea;
+}
+
+.tag-list li {
+  padding: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tag-list li.active {
+  font-weight: 600;
+}
+
+/* Toolbar */
+.discussion-toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.discussion-toolbar input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.discussion-toolbar select {
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.new-btn {
+  background: #3b49df;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+}
+
+/* Discussion List */
+.discussion-list {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.discussion-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.discussion-item:last-child {
+  border-bottom: none;
+}
+
+/* Votes */
+.vote {
+  width: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.vote span {
+  display: block;
+  font-weight: 600;
+}
+
+/* Content */
+.discussion-content h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.discussion-content p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+/* Labels */
+.labels {
+  margin-bottom: 6px;
+}
+
+.label {
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+.label.movie { background: #e0e7ff; }
+.label.actor { background: #fde68a; }
+.label.genre { background: #bbf7d0; }
+.label.scifi { background: #ddd6fe; }
+
+/* Meta */
+.discussion-meta {
+  font-size: 12px;
+  color: #777;
+  display: flex;
+  gap: 14px;
+}
+

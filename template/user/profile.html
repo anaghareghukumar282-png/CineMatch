@@ -1,152 +1,202 @@
 {% load static %}
 {% include 'user/header.html' %}
 
-<section class="profile-section" style="min-height: 100vh; padding: 60px 20px 40px;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="profile-card" style="background: rgba(0,0,0,0.6); border-radius: 15px; padding: 40px; box-shadow: 0 8px 32px rgba(236, 0, 140, 0.3); border: 1px solid rgba(252, 103, 103, 0.3);">
-                    
-                    <!-- Profile Header -->
-                    <div class="profile-header text-center" style="margin-bottom: 40px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 20px;">
-                        <div class="profile-avatar" style="margin-bottom: 20px;">
-                            <div style="width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #ec008c, #fc6767); display: inline-flex; align-items: center; justify-content: center; font-size: 50px; color: white;">
-                                <i class="fa fa-user"></i>
-                            </div>
-                        </div>
-                        <h2 class="custom-white" style="margin: 15px 0; font-size: 28px;">
-                            {{ user.username }}
-                        </h2>
-                        <p class="custom-purple" style="margin: 5px 0;">User Profile</p>
-                    </div>
+<style>
+    body {
+        background: #f9fafb;
+        color: #111827;
+    }
 
-                    <!-- Profile Information -->
-                    <div class="profile-information">
-                        <div class="row" style="margin-bottom: 30px;">
-                            <div class="col-md-6">
-                                <div class="info-box" style="background: rgba(236, 0, 140, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ec008c;">
-                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Username</p>
-                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.username }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-box" style="background: rgba(252, 103, 103, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fc6767;">
-                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Email</p>
-                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.email }}</p>
-                                </div>
-                            </div>
-                        </div>
+    .dev-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 24px;
+    }
 
-                        <div class="row" style="margin-bottom: 30px;">
-                            <div class="col-md-6">
-                                <div class="info-box" style="background: rgba(236, 0, 140, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #ec008c;">
-                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">User ID</p>
-                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">{{ user.userid }}</p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="info-box" style="background: rgba(252, 103, 103, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #fc6767;">
-                                    <p class="custom-purple" style="font-size: 12px; margin-bottom: 5px; text-transform: uppercase;">Account Type</p>
-                                    <p class="custom-white" style="font-size: 16px; font-weight: bold;">
-                                        <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 5px 15px; border-radius: 20px;">Regular User</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+    .dev-sidebar a {
+        color: #374151;
+        text-decoration: none;
+        display: block;
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
 
-                        <!-- Statistics -->
-                        <div class="row" style="margin-bottom: 30px;">
-                            <div class="col-md-12">
-                                <h4 class="custom-purple" style="margin-bottom: 20px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 10px;">
-                                    <i class="fa fa-bar-chart"></i> Your Statistics
-                                </h4>
-                            </div>
-                        </div>
+    .dev-sidebar a.active,
+    .dev-sidebar a:hover {
+        background: #eef2ff;
+        color: #4338ca;
+    }
 
-                        <div class="row" style="margin-bottom: 30px;">
-                            <div class="col-md-4">
-                                <div class="stat-box text-center" style="background: rgba(236, 0, 140, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(236, 0, 140, 0.3);">
-                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
-                                        {{ watchlist_count }}
-                                    </p>
-                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Movies in Watchlist</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="stat-box text-center" style="background: rgba(252, 103, 103, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(252, 103, 103, 0.3);">
-                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
-                                        {{ reviews_count }}
-                                    </p>
-                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Reviews Given</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="stat-box text-center" style="background: rgba(236, 0, 140, 0.15); padding: 25px; border-radius: 10px; border: 1px solid rgba(236, 0, 140, 0.3);">
-                                    <p class="custom-red" style="font-size: 32px; font-weight: bold; margin: 0;">
-                                        {{ recommendations_count }}
-                                    </p>
-                                    <p class="custom-white" style="margin-top: 10px; font-size: 14px;">Recommendations</p>
-                                </div>
-                            </div>
-                        </div>
+    .dev-label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
 
-                        <!-- Preferences Summary -->
-                        {% if user_preferences %}
-                        <div class="row" style="margin-bottom: 30px;">
-                            <div class="col-md-12">
-                                <h4 class="custom-purple" style="margin-bottom: 20px; border-bottom: 2px solid rgba(236, 0, 140, 0.5); padding-bottom: 10px;">
-                                    <i class="fa fa-heart"></i> Your Preferences
-                                </h4>
-                                <div class="preferences-box" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px;">
-                                    {% if user_preferences.preferred_genres %}
-                                        <p class="custom-white" style="margin-bottom: 10px;"><strong>Preferred Genres:</strong></p>
-                                        <div style="margin-bottom: 15px;">
-                                            {% for genre in user_preferences.preferred_genres %}
-                                                <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 5px 12px; border-radius: 15px; margin-right: 8px; display: inline-block; margin-bottom: 5px;">
-                                                    {{ genre }}
-                                                </span>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                    
-                                    {% if user_preferences.preferred_languages %}
-                                        <p class="custom-white" style="margin-bottom: 10px; margin-top: 15px;"><strong>Preferred Languages:</strong></p>
-                                        <div>
-                                            {% for language in user_preferences.preferred_languages %}
-                                                <span class="badge" style="background: linear-gradient(to right, #fc6767, #ec008c); padding: 5px 12px; border-radius: 15px; margin-right: 8px; display: inline-block; margin-bottom: 5px;">
-                                                    {{ language }}
-                                                </span>
-                                            {% endfor %}
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
+    .dev-value {
+        border: 1px solid #d1d5db;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: #f9fafb;
+        font-size: 15px;
+    }
+
+    .avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #d1d5db;
+        margin-bottom: 12px;
+    }
+
+    .upload-btn {
+        display: inline-block;
+        padding: 8px 14px;
+        background: #eef2ff;
+        color: #4338ca;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    input[type="file"] {
+        display: none;
+    }
+
+    .save-btn {
+        background: #4f46e5;
+        border: none;
+        padding: 14px;
+        font-weight: 600;
+        border-radius: 10px;
+        width: 100%;
+        color: white;
+    }
+
+    .save-btn:hover {
+        background: #4338ca;
+    }
+</style>
+
+<div class="container" style="margin-top:90px; margin-bottom:60px;">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3">
+            <div class="dev-card dev-sidebar">
+                <h5 class="mb-3">⚙ Settings</h5>
+                <a class="active" href="{% url 'profile' %}">🙂 Profile</a>
+                <a href="{% url 'account' %}" class="active">🍁 Account</a>
+                <a href="{% url 'preferences' %}">🎬 Preferences</a>
+                <a href="{% url 'view_watchlist' %}">❤️ Watchlist</a>
+                <a href="/guestapp/logout" style="color:#dc2626;">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-9">
+
+            <!-- USER HEADER -->
+            <div class="dev-card mb-4">
+                <h4 class="mb-1">@{{ user.username }}</h4>
+                <p class="text-muted mb-0">Movie Recommendation App User</p>
+            </div>
+
+            <!-- USER DETAILS (COLUMN LAYOUT) -->
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="dev-card mb-4">
+                    <h5 class="mb-4">User</h5>
+
+                    <!-- PROFILE IMAGE -->
+                    <div class="mb-4">
+                        <div class="dev-label">Profile Image</div>
+
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" class="avatar">
+                        {% else %}
+                            <img src="{% static 'images/avatar-placeholder.png' %}" class="avatar">
                         {% endif %}
 
-                        <!-- Action Buttons -->
-                        <div class="row" style="margin-top: 40px; border-top: 2px solid rgba(236, 0, 140, 0.5); padding-top: 30px;">
-                            <div class="col-md-4">
-                                <a href="{% url 'preferences' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
-                                    <i class="fa fa-cog"></i> Preferences
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'view_watchlist' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #fc6767, #ec008c); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
-                                    <i class="fa fa-heart"></i> Watchlist
-                                </a>
-                            </div>
-                            <div class="col-md-4">
-                                <a href="{% url 'userhome' %}" class="btn btn-block" style="display: block; padding: 12px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-bottom: 10px; transition: all 0.3s ease;">
-                                    <i class="fa fa-arrow-left"></i> Home
-                                </a>
-                            </div>
+                        <br>
+
+                        <label class="upload-btn">
+                            Upload new image
+                            <input type="file" name="profile_image" accept="image/*">
+                        </label>
+                    </div>
+
+                    <!-- USERNAME -->
+                    <div class="mb-4">
+                        <div class="dev-label">Username</div>
+                        <input type="text" class="dev-value" value="{{ user.username }}" readonly>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="mb-4">
+                        <div class="dev-label">Email</div>
+                        <input type="text" class="dev-value" value="{{ user.email }}" readonly>
+                    </div>
+
+                    <!-- ACCOUNT TYPE -->
+                    <div>
+                        <div class="dev-label">Account Type</div>
+                        <div class="dev-value">Regular User</div>
+                    </div>
+                </div>
+
+                <!-- PREFERENCES -->
+                {% if user_preferences %}
+                <div class="dev-card mb-4">
+                    <h5 class="mb-3">Preferences</h5>
+
+                    {% for genre in user_preferences.preferred_genres %}
+                        <span class="badge bg-primary me-1 mb-1">{{ genre }}</span>
+                    {% endfor %}
+
+                    <br><br>
+
+                    {% for language in user_preferences.preferred_languages %}
+                        <span class="badge bg-secondary me-1 mb-1">{{ language }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- STATS -->
+                <div class="dev-card mb-4">
+                    <h5 class="mb-3">Your Activity</h5>
+
+                    <div class="row text-center">
+                        <div class="col">
+                            <h3>{{ watchlist_count }}</h3>
+                            <small class="text-muted">Watchlist</small>
+                        </div>
+                        <div class="col">
+                            <h3>{{ reviews_count }}</h3>
+                            <small class="text-muted">Reviews</small>
+                        </div>
+                        <div class="col">
+                            <h3>{{ recommendations_count }}</h3>
+                            <small class="text-muted">Recommendations</small>
                         </div>
                     </div>
                 </div>
-            </div>
+                
+                <!-- SAVE -->
+                <div class="dev-card">
+                    <button type="submit" class="save-btn">
+                        Save Profile Information
+                    </button>
+                </div>
+
+            </form>
+
         </div>
     </div>
-</section>
-
-{% include 'user/footer.html' %}
+</div>

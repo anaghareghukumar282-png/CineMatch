@@ -1,0 +1,49 @@
+{% load static %}
+
+<aside class="sidebar">
+
+  <!-- Logo / Title -->
+  <div class="sidebar-header">
+    <a href="/userapp/browse-movies" class="sidebar-logo">
+      🎬 CineMatch
+    </a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+
+    <a href="{% url 'browse_movies' %}" class="sidebar-link">
+      <i class="fa fa-film"></i>
+      <span>Browse Movies</span>
+    </a>
+
+    <a href="{% url 'view_watchlist' %}" class="sidebar-link">
+      <i class="fa fa-heart"></i>
+      <span>Watchlist</span>
+    </a>
+
+    {% if request.session.loginid %}
+    <a href="{% url 'profile' %}" class="sidebar-link">
+      <i class="fa fa-user"></i>
+      <span>Profile</span>
+    </a>
+
+    <a href="{% url 'preferences' %}" class="sidebar-link">
+      <i class="fa fa-sliders"></i>
+      <span>Preferences</span>
+    </a>
+
+    <a href="/guestapp/logout" class="sidebar-link danger">
+      <i class="fa fa-sign-out"></i>
+      <span>Logout</span>
+    </a>
+    {% else %}
+    <a href="{% url 'loginhome' %}" class="sidebar-link">
+      <i class="fa fa-sign-in"></i>
+      <span>Login</span>
+    </a>
+    {% endif %}
+
+  </nav>
+
+</aside>

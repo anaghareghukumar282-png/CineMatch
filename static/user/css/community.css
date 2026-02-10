@@ -1,0 +1,152 @@
+body {
+  background: #f5f5f5;
+}
+
+/* Layout */
+.dev-layout {
+  max-width: 1280px;
+  margin: 72px auto;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  padding: 0 16px;
+}
+
+/* Sidebar */
+.sidebar-nav a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.sidebar-nav a.active,
+.sidebar-nav a:hover {
+  background: #eaeaea;
+}
+
+.sidebar-section {
+  margin-top: 24px;
+}
+
+.tag-list li {
+  padding: 6px;
+  font-size: 13px;
+  color: #555;
+}
+
+/* Top bar */
+.filter-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.filter-tabs button {
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.filter-tabs button.active {
+  border: 2px solid #3b49df;
+}
+
+.create-btn {
+  margin-left: auto;
+  background: #3b49df;
+  color: white;
+  border: none;
+}
+
+/* Community Grid */
+.community-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* Card */
+.community-card {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  overflow: hidden;
+}
+
+.community-header {
+  height: 80px;
+  background: linear-gradient(135deg, #3b49df, #5865f2);
+  color: white;
+  font-size: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.community-content {
+  padding: 14px;
+}
+
+.community-content h3 {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.community-content p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+/* Tags */
+.tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.tags span {
+  background: #f1f1f1;
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+}
+
+/* Meta */
+.community-meta {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/* Buttons */
+.join-btn,
+.chat-btn {
+  display: block;
+  text-align: center;
+  padding: 8px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.join-btn {
+  background: #3b49df;
+  color: white;
+}
+
+.chat-btn {
+  background: #10b981;
+  color: white;
+}
+
+.community-card.joined {
+  border: 2px solid #10b981;
+}

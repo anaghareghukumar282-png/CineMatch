@@ -1,185 +1,110 @@
 {% load static %}
 {% include 'user/header.html' %}
 
-<section class="browse-movies" style="min-height: 100vh; padding: 60px 20px 40px;">
-    <div class="container">
-        <!-- Page Title -->
-        <div class="row" style="margin-bottom: 40px;">
-            <div class="col-md-12">
-                <h2 class="section-title wow bounceInRight animated custom-white" style="text-align: center;">Browse Movies</h2>
-                <p class="custom-white text-center" style="font-size: 16px;">Showing <span class="custom-red" style="font-weight: bold;">{{ total_movies }}</span> movie(s)</p>
-            </div>
-        </div>
+<link rel="stylesheet" href="{% static 'user/css/browse_movie.css' %}">
 
-        <div class="row">
-            <!-- Sidebar Filters -->
-            <div class="col-md-3">
-                <div class="filter-sidebar" style="background: rgba(0,0,0,0.5); padding: 25px; border-radius: 10px; border-left: 4px solid #ec008c; margin-bottom: 20px;">
-                    <h4 class="custom-purple" style="margin-bottom: 20px; border-bottom: 2px solid #ec008c; padding-bottom: 10px;">
-                        <i class="fa fa-filter"></i> Filters
-                    </h4>
-                    <form method="GET" action="{% url 'browse_movies' %}" id="filter-sidebar-form">
-                        <!-- Genre Filter -->
-                        <div style="margin-bottom: 25px;">
-                            <label class="custom-white" style="font-weight: bold; display: block; margin-bottom: 10px;">
-                                <i class="fa fa-film"></i> Genre
-                            </label>
-                            <select name="genre" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ec008c; background: rgba(0,0,0,0.7); color: white;">
-                                <option value="">All Genres</option>
-                                {% for genre in genres %}
-                                    <option value="{{ genre.genreid }}" {% if genre.genreid|stringformat:"s" == selected_genre %}selected{% endif %}>
-                                        {{ genre.genrename }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
+<div class="dev-layout">
 
-                        <!-- Language Filter -->
-                        <div style="margin-bottom: 25px;">
-                            <label class="custom-white" style="font-weight: bold; display: block; margin-bottom: 10px;">
-                                <i class="fa fa-language"></i> Language
-                            </label>
-                            <select name="language" style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #fc6767; background: rgba(0,0,0,0.7); color: white;">
-                                <option value="">All Languages</option>
-                                {% for language in languages %}
-                                    <option value="{{ language.languagename }}" {% if language.languagename == selected_language %}selected{% endif %}>
-                                        {{ language.languagename }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
+  <!-- LEFT SIDEBAR -->
+  <aside class="dev-sidebar">
+    <nav class="sidebar-nav">
+      <a href="/userapp/browse-movies/" class="active">🏠 Home</a>
+      <a href="/userapp/browse-movies/" >🎬 Movies</a>
+      <a href="{% url 'view_watchlist' %}">📺 Watch History</a>
+      <a href="{% url 'view_watchlist' %}">❤️ Wishlist</a>
+      <a href="{% url 'view_discussions' %}">💬 Discussion</a>
+      <a href="{% url 'view_community' %}">👨‍👦‍👦 Community</a>
+    </nav>
 
-                        <!-- Filter Buttons -->
-                        <div style="display: flex; gap: 10px;">
-                            <button type="submit" style="flex: 1; padding: 10px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;">
-                                <i class="fa fa-check"></i> Apply
-                            </button>
-                            <a href="{% url 'browse_movies' %}" style="flex: 1; padding: 10px; background: rgba(255,255,255,0.1); color: white; border: 1px solid white; border-radius: 5px; font-weight: bold; cursor: pointer; text-align: center; text-decoration: none;">
-                                <i class="fa fa-times"></i> Reset
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <div class="sidebar-section">
+      <div class="section-header">
+        <span>Genres</span>
+        <button class="add-btn">＋</button>
+      </div>
 
-            <!-- Movies Grid -->
-            <div class="col-md-9">
-                {% if movies %}
-                    <div class="movies-grid">
-                        <div class="row">
-                            {% for movie in movies %}
-                                <div class="col-md-4 col-sm-6" style="margin-bottom: 30px;">
-                                    <div class="movie-card" style="background: rgba(0,0,0,0.6); border-radius: 10px; overflow: hidden; box-shadow: 0 8px 32px rgba(236, 0, 140, 0.2); transition: all 0.3s ease; border: 1px solid rgba(252, 103, 103, 0.3);">
-                                        <!-- Movie Poster -->
-                                        <div class="movie-poster" style="position: relative; height: 300px; overflow: hidden; background: rgba(0,0,0,0.8);">
-                                            {% if movie.poster %}
-                                                <img src="{{ movie.poster.url }}" alt="{{ movie.moviename }}" style="width: 100%; height: 100%; object-fit: cover;">
-                                            {% else %}
-                                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 60px; color: #ec008c;">
-                                                    <i class="fa fa-film"></i>
-                                                </div>
-                                            {% endif %}
-                                            <div class="movie-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; transition: all 0.3s ease;">
-                                                <a href="#" style="padding: 10px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                                                    <i class="fa fa-eye"></i> View Details
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <!-- Movie Info -->
-                                        <div style="padding: 20px;">
-                                            <h5 class="custom-white" style="margin: 0 0 10px 0; font-size: 16px; font-weight: bold; min-height: 40px;">
-                                                {{ movie.moviename }}
-                                            </h5>
-
-                                            <!-- Genre Badge -->
-                                            <div style="margin-bottom: 10px;">
-                                                {% if movie.genreid %}
-                                                    <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 4px 10px; border-radius: 15px; font-size: 12px;">
-                                                        {{ movie.genreid.genrename }}
-                                                    </span>
-                                                {% endif %}
-                                            </div>
-
-                                            <!-- Movie Details -->
-                                            <div style="font-size: 13px; color: #ccc; margin-bottom: 15px;">
-                                                {% if movie.releaseyear %}
-                                                    <p style="margin: 5px 0;">
-                                                        <i class="fa fa-calendar custom-red"></i> {{ movie.releaseyear }}
-                                                    </p>
-                                                {% endif %}
-                                                {% if movie.language %}
-                                                    <p style="margin: 5px 0;">
-                                                        <i class="fa fa-language custom-red"></i> {{ movie.language }}
-                                                    </p>
-                                                {% endif %}
-                                                {% if movie.duration %}
-                                                    <p style="margin: 5px 0;">
-                                                        <i class="fa fa-clock-o custom-red"></i> {{ movie.duration }} min
-                                                    </p>
-                                                {% endif %}
-                                            </div>
-
-                                            <!-- Rating -->
-                                            {% if movie.rating %}
-                                                <div style="display: flex; align-items: center; margin-bottom: 15px; padding-top: 10px; border-top: 1px solid rgba(236, 0, 140, 0.3);">
-                                                    <span class="custom-red" style="font-size: 18px; font-weight: bold; margin-right: 5px;">
-                                                        {{ movie.rating|floatformat:1 }}
-                                                    </span>
-                                                    <span class="custom-white">
-                                                        {% for i in "12345" %}
-                                                            {% if i|add:0 <= movie.rating %}
-                                                                <i class="fa fa-star custom-red"></i>
-                                                            {% elif i|add:-1 < movie.rating %}
-                                                                <i class="fa fa-star-half-o custom-red"></i>
-                                                            {% else %}
-                                                                <i class="fa fa-star-o custom-red"></i>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </span>
-                                                </div>
-                                            {% endif %}
-
-                                            <!-- Description Preview -->
-                                            {% if movie.description %}
-                                                <p class="custom-white" style="font-size: 12px; margin: 15px 0; line-height: 1.5; color: #ccc;">
-                                                    {{ movie.description|truncatewords:20 }}
-                                                </p>
-                                            {% endif %}
-
-                                            <!-- Action Button -->
-                                            <a href="{% url 'add_to_watchlist' movie.movieid %}" style="display: block; width: 100%; padding: 10px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; text-align: center; font-weight: bold; margin-top: 15px; transition: all 0.3s ease;">
-                                                <i class="fa fa-plus"></i> Add to Watchlist
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                {% else %}
-                    <!-- No Results Message -->
-                    <div style="background: rgba(0,0,0,0.5); padding: 60px 40px; border-radius: 10px; text-align: center;">
-                        <i class="fa fa-search" style="font-size: 60px; color: #ec008c; margin-bottom: 20px;"></i>
-                        <h4 class="custom-white" style="margin: 20px 0;">No Movies Found</h4>
-                        <p class="custom-white" style="margin: 10px 0; color: #ccc;">Try adjusting your filters to find movies you like.</p>
-                        <a href="{% url 'browse_movies' %}" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                            <i class="fa fa-refresh"></i> Clear Filters
-                        </a>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- Back to Home Button -->
-        <div class="row" style="margin-top: 50px;">
-            <div class="col-md-12 text-center">
-                <a href="{% url 'userhome' %}" style="display: inline-block; padding: 12px 30px; background: linear-gradient(to right, #fc6767, #ec008c); color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                    <i class="fa fa-arrow-left"></i> Back to Home
-                </a>
-            </div>
-        </div>
+      <ul class="tag-list">
+        {% for genre in genres %}
+          <li>#{{ genre.genrename }}</li>
+        {% endfor %}
+      </ul>
     </div>
-</section>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dev-main">
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button class="active">Discover</button>
+      <button>Recommended</button>
+
+      <form method="GET" action="{% url 'browse_movies' %}" class="filter-form">
+        <select name="genre">
+          <option value="">All Genres</option>
+          {% for genre in genres %}
+            <option value="{{ genre.genreid }}" {% if genre.genreid|stringformat:"s" == selected_genre %}selected{% endif %}>
+              {{ genre.genrename }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <select name="language">
+          <option value="">All Languages</option>
+          {% for language in languages %}
+            <option value="{{ language.iso_639_1 }}" {% if language.iso_639_1 == selected_language %}selected{% endif %}>
+              {{ language.languagename }}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button type="submit">Apply</button>
+      </form>
+    </div>
+
+    <!-- MOVIE GRID -->
+    <section class="movie-feed">
+      {% for movie in movies %}
+        <article class="movie-card">
+          <div class="poster">
+            {% if movie.poster %}
+              <img src="{{ movie.poster }}" alt="{{ movie.moviename }}">
+            {% else %}
+              <div class="poster-placeholder">🎬</div>
+            {% endif %}
+          </div>
+
+          <div class="movie-content">
+            <h3>{{ movie.moviename }}</h3>
+
+            <div class="meta">
+              {% if movie.releaseyear %}<span>{{ movie.releaseyear }}</span>{% endif %}
+              {% if movie.duration %}<span>{{ movie.duration }}m</span>{% endif %}
+            </div>
+
+            <p>{{ movie.description|truncatewords:14 }}</p>
+
+            <a href="{% url 'add_to_watchlist' movie.movieid %}" class="watch-btn">
+              ➕ Watchlist
+            </a>
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+
+    <!-- PAGINATION -->
+    {% if movies.has_other_pages %}
+      <div class="pagination">
+        {% if movies.has_previous %}
+          <a href="?page={{ movies.previous_page_number }}">Prev</a>
+        {% endif %}
+        <span>Page {{ movies.number }} of {{ movies.paginator.num_pages }}</span>
+        {% if movies.has_next %}
+          <a href="?page={{ movies.next_page_number }}">Next</a>
+        {% endif %}
+      </div>
+    {% endif %}
+
+  </main>
+</div>
 
 {% include 'user/footer.html' %}

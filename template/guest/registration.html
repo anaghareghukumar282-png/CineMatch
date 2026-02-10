@@ -4,120 +4,226 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
+
     <style>
-       
-
-
-        /* Container Styling */
-        .form-container {
-            background-color:white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 0 auto;
-            font-family: 'Arial', sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Form Title */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        /* LEFT SECTION */
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #5a7b9e 0%, #4a6fa5 100%);
+            color: #fff;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .left-section::before,
+        .left-section::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .left-section::before {
+            width: 200px;
+            height: 200px;
+            top: -50px;
+            right: -50px;
+        }
+
+        .left-section::after {
+            width: 150px;
+            height: 150px;
+            bottom: -40px;
+            left: -40px;
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-content h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .left-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* RIGHT SECTION */
+        .right-section {
+            flex: 1;
+            padding: 60px 40px;
+        }
+
         .form-title {
             text-align: center;
-            font-size: 26px;
-            color: #4a90e2;
-            margin-bottom: 20px;
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 35px;
             font-weight: 600;
         }
 
-        /* Input and Select Fields */
         .form-group {
             margin-bottom: 20px;
         }
 
         .form-control {
-            font-size: 16px;
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px black;
             width: 100%;
-            transition: border-color 0.3s;
+            padding: 14px 16px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #f8f9fa;
+            transition: 0.3s;
         }
 
-        /* Focus Effect on Input Fields */
         .form-control:focus {
-            border-color: #4a90e2;
             outline: none;
+            background: #fff;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.15);
         }
 
-        /* Submit Button */
         .btnRegister {
-            background-color: #4a90e2;
-            color: white;
-            padding: 12px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        /* Button Hover Effect */
         .btnRegister:hover {
-            background-color: #357ab7;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102,126,234,0.3);
         }
 
-        /* Placeholder Text Styling */
-        .form-control::placeholder {
-            color: #aaa;
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 576px) {
-            .form-container {
-                padding: 20px;
+        .form-footer a {
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            color: #764ba2;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
             }
 
-            .form-title {
-                font-size: 22px;
+            .left-section {
+                padding: 40px 30px;
+            }
+
+            .right-section {
+                padding: 40px 30px;
             }
         }
     </style>
 </head>
+
 <body>
-    
-    <br><br>
-<div class="col-md-6 mx-auto">
-    <form action="{% url 'userreg_process' %}" method="POST" class="form-container">
-        {% csrf_token %}
-        
-        <h2 class="form-title">Customer Registration</h2>
 
-        <!-- Name -->
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter Customer Name" name="customername" id="customername" required>
-        </div>
+<div class="container">
 
-        <!-- Email -->
-        <div class="form-group">
-            <input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required>
+    <!-- LEFT -->
+    <div class="left-section">
+        <div class="left-content">
+            <h2>Join Us Today</h2>
+            <p>
+                Create your account to explore movies, get personalized
+                recommendations, and rate your favorite films.
+            </p>
         </div>
+    </div>
 
-        <!-- Username -->
-        <div class="form-group">
-            <input type="text" class="form-control" placeholder="Enter Username" name="username" id="username" required>
-        </div>
+    <!-- RIGHT -->
+    <div class="right-section">
+        <h1 class="form-title">Customer Registration</h1>
 
-        <!-- Password -->
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Enter Password" name="password" id="password" required>
-        </div>
+        <form method="POST" action="{% url 'userreg_process' %}">
+            {% csrf_token %}
 
-        <!-- Submit Button -->
-        <div class="form-group">
-            <input type="submit" class="btnRegister" value="Register">
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       placeholder="Enter Customer Name"
+                       name="customername" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control"
+                       placeholder="Enter Email"
+                       name="email" required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control"
+                       placeholder="Enter Username"
+                       name="username" required>
+            </div>
+
+            <div class="form-group">
+                <input type="password" class="form-control"
+                       placeholder="Enter Password"
+                       name="password" required>
+            </div>
+
+            <button type="submit" class="btnRegister">Register</button>
+        </form>
+
+        <div class="form-footer">
+            Already have an account? <a href="/guestapp/loginhome">Login</a>
         </div>
-    </form>
-    <br><br>
+    </div>
+
 </div>
 
 </body>

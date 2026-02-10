@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Discussion · CineMatch</title>
+
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --card: #ffffff;
+      --border: #d0d7de;
+      --text: #24292f;
+      --muted: #57606a;
+      --primary: #0969da;
+      --tag-bg: #ddf4ff;
+      --tag-text: #0550ae;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+    }
+
+    /* ===== HEADER ===== */
+    .discussion-header {
+      margin-bottom: 16px;
+    }
+
+    .discussion-title {
+      font-size: 26px;
+      font-weight: 600;
+    }
+
+    .discussion-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #ccc;
+    }
+
+    .username {
+      font-weight: 600;
+    }
+
+    .post-date {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .post-body {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    /* ===== REPLIES ===== */
+    .reply {
+      margin-left: 40px;
+      margin-top: 12px;
+      border-left: 2px solid var(--border);
+      padding-left: 16px;
+    }
+
+    .reply-box {
+      margin-top: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      resize: vertical;
+      font-size: 14px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .btn.secondary {
+      background: #eaeef2;
+      color: var(--text);
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar .section {
+      margin-bottom: 16px;
+    }
+
+    .sidebar h4 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      font-size: 12px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      margin: 4px 4px 0 0;
+    }
+
+    .participants {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .participants .avatar {
+      width: 28px;
+      height: 28px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main>
+
+      <div class="discussion-header">
+        <div class="discussion-title">
+          Best Sci-Fi Movies Like Interstellar?
+        </div>
+        <div class="discussion-meta">
+          Started by <strong>moviebuff_97</strong> · 2 days ago
+        </div>
+      </div>
+
+      <!-- ===== MAIN POST ===== -->
+      <div class="card">
+        <div class="post-header">
+          <div class="avatar"></div>
+          <div>
+            <div class="username">moviebuff_97</div>
+            <div class="post-date">Posted on Feb 2, 2026</div>
+          </div>
+        </div>
+
+        <div class="post-body">
+          I really loved <strong>Interstellar</strong>, <strong>Arrival</strong>, and <strong>Gravity</strong>.
+          Looking for more sci-fi movies that focus on space, time, or emotions.
+          Any recommendations?
+        </div>
+      </div>
+
+      <!-- ===== COMMENT 1 ===== -->
+      <div class="card">
+        <div class="post-header">
+          <div class="avatar"></div>
+          <div>
+            <div class="username">cinelover</div>
+            <div class="post-date">2 days ago</div>
+          </div>
+        </div>
+
+        <div class="post-body">
+          You should definitely watch <strong>Moon (2009)</strong> and <strong>Ad Astra</strong>.
+          They’re slow but very atmospheric.
+        </div>
+
+        <!-- Reply to comment -->
+        <div class="reply-box">
+          <button class="btn secondary">Reply</button>
+        </div>
+
+        <!-- Nested reply -->
+        <div class="reply">
+          <div class="post-header">
+            <div class="avatar"></div>
+            <div>
+              <div class="username">moviebuff_97</div>
+              <div class="post-date">1 day ago</div>
+            </div>
+          </div>
+
+          <div class="post-body">
+            Moon is already on my list 🔥 Thanks!
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== COMMENT 2 ===== -->
+      <div class="card">
+        <div class="post-header">
+          <div class="avatar"></div>
+          <div>
+            <div class="username">spacegeek</div>
+            <div class="post-date">1 day ago</div>
+          </div>
+        </div>
+
+        <div class="post-body">
+          Try <strong>Sunshine (2007)</strong> — underrated sci-fi with great visuals.
+        </div>
+      </div>
+
+      <!-- ===== ADD NEW COMMENT ===== -->
+      <div class="card">
+        <h4>Add a comment</h4>
+        <textarea placeholder="Write your comment here..."></textarea>
+        <button class="btn">Comment</button>
+      </div>
+
+    </main>
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="sidebar">
+
+      <div class="card section">
+        <h4>Category</h4>
+        <div>🎬 Movie Discussion</div>
+      </div>
+
+      <div class="card section">
+        <h4>Tags</h4>
+        <span class="tag">Sci-Fi</span>
+        <span class="tag">Space</span>
+        <span class="tag">Interstellar</span>
+      </div>
+
+      <div class="card section">
+        <h4>Participants</h4>
+        <div class="participants">
+          <div class="avatar"></div>
+          <div class="avatar"></div>
+          <div class="avatar"></div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+{% load static %}
+{% include 'user/community_header.html' %}
+
+<link rel="stylesheet" href="{% static 'user/css/community.css' %}">
+
+<style>
+/* Full screen chat container */
+.chat-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8f9fa;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Chat Header */
+.chat-header {
+  background: linear-gradient(135deg, #3b49df, #5865f2);
+  color: white;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.chat-header-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.chat-header-avatar {
+  width: 48px;
+  height: 48px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.chat-header-details h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.chat-header-details p {
+  margin: 4px 0 0 0;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.back-btn {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Messages Area */
+.messages-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #e5e7eb;
+}
+
+/* Message Bubble */
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  animation: fadeIn 0.2s ease-in;
+}
+
+.message.own {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.message-bubble {
+  padding: 12px 18px;
+  border-radius: 20px;
+  word-wrap: break-word;
+  font-size: 15px;
+  line-height: 1.4;
+  position: relative;
+  background: #ffffff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  width: fit-content;
+}
+
+.message.own .message-bubble {
+  background: #3b49df;
+  color: white;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 20px;
+}
+
+.message-sender {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #4b5563;
+}
+
+.message.own .message-sender {
+  color: #dbeafe;
+}
+
+.message-time {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.message.own .message-time {
+  color: #dbeafe;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Message Input Area */
+.message-input-area {
+  padding: 16px 24px;
+  flex-shrink: 0;
+  background: #ffffff;
+  border-top: 1px solid #d1d5db;
+}
+
+.message-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.message-input {
+  flex: 1;
+  border: 1px solid #d1d5db;
+  border-radius: 24px;
+  padding: 14px 20px;
+  font-size: 15px;
+  outline: none;
+  resize: none;
+  min-height: 40px;
+  max-height: 120px;
+  overflow-y: auto;
+  transition: all 0.2s;
+}
+
+.message-input:focus {
+  border-color: #3b49df;
+  box-shadow: 0 0 0 2px rgba(59, 73, 223, 0.1);
+}
+
+.send-btn {
+  background: #3b49df;
+  color: white;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.send-btn:hover {
+  background: #5865f2;
+  transform: scale(1.05);
+}
+
+.send-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Empty Chat */
+.empty-chat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #6b7280;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.empty-chat-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-header-details h3 { font-size: 16px; }
+  .chat-header-details p { font-size: 11px; }
+  .message-bubble { font-size: 14px; }
+  .message-input { font-size: 14px; min-height: 36px; }
+}
+</style>
+
+<div class="chat-container">
+  <!-- Chat Header -->
+  <div class="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-header-avatar">
+        {% if community.community_type == 'Genre-based' %}
+          🎭
+        {% elif community.community_type == 'Movie-based' %}
+          🎬
+        {% else %}
+          👥
+        {% endif %}
+      </div>
+      <div class="chat-header-details">
+        <h3>{{ community.name }}</h3>
+        <p>{{ community.member_count }} members</p>
+      </div>
+    </div>
+    <a href="{% url 'view_community' %}" class="back-btn">← Back</a>
+  </div>
+
+  <!-- Messages Area -->
+  <div class="messages-area" id="messagesArea">
+    {% for message in messages %}
+      <div class="message{% if message.sender == current_user %} own{% endif %}">
+        {% if message.sender != current_user %}
+          <div class="message-sender">{{ message.sender.username }}</div>
+        {% endif %}
+        <div class="message-bubble">{{ message.message }}</div>
+        <div class="message-time">{{ message.sent_date|date:"H:i" }}</div>
+      </div>
+    {% empty %}
+      <div class="empty-chat">
+        <div class="empty-chat-icon">💬</div>
+        <h3>Welcome to {{ community.name }}!</h3>
+        <p>Be the first to start a conversation in this community.</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Message Input -->
+  <div class="message-input-area">
+    <form method="post" action="{% url 'send_community_message' community.communityid %}" class="message-form">
+      {% csrf_token %}
+      <textarea name="message" class="message-input" placeholder="Type a message..." rows="1" required onkeydown="handleKeyPress(event)" oninput="autoResize(this)"></textarea>
+      <button type="submit" class="send-btn">➤</button>
+    </form>
+  </div>
+</div>
+
+<script>
+// Auto-resize textarea
+function autoResize(textarea) {
+  textarea.style.height = 'auto';
+  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+}
+
+// Enter to send
+function handleKeyPress(event) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    const form = event.target.closest('form');
+    form.submit();
+  }
+}
+
+// Scroll to bottom
+document.addEventListener('DOMContentLoaded', function() {
+  const messagesArea = document.getElementById('messagesArea');
+  messagesArea.scrollTop = messagesArea.scrollHeight;
+});
+
+// Focus input
+document.querySelector('.message-input').focus();
+</script>
+

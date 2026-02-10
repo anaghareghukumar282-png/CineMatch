@@ -37,11 +37,11 @@ def login_process(request):
         
             else:
                 return HttpResponse(
-                    "<script>alert('Request not accepted');window.location='/guestapp/login';</script>"
+                    "<script>alert('Request not accepted');window.location='/guestapp/loginhome';</script>"
                 )
         else:
             return HttpResponse(
-                "<script>alert('Invalid credentials or account not approved');window.location='/guestapp/login';</script>"
+                "<script>alert('Invalid credentials or account not approved');window.location='/guestapp/loginhome';</script>"
             )
 
     return HttpResponse(
@@ -69,3 +69,12 @@ def userreg_process(request):
             tob.save()
 
             return HttpResponse("<script>alert('Successfully registered'); window.location='/Guest/officerreg';</script>")
+
+def logout_view(request):
+    request.session.flush() # This handles the 'KeyError' internally and wipes everything
+    return redirect('loginhome')
+
+
+def ws_info(request, community_id):
+    # Simple human-friendly response for direct HTTP visits to the websocket URL
+    return HttpResponse(f"This endpoint is a WebSocket endpoint for community {community_id}. Open the community page to use real-time chat.")

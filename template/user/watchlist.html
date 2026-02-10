@@ -1,177 +1,99 @@
 {% load static %}
 {% include 'user/header.html' %}
 
-<section class="watchlist-section" style="min-height: 100vh; padding: 60px 20px 40px;">
-    <div class="container">
-        <!-- Page Title -->
-        <div class="row" style="margin-bottom: 40px;">
-            <div class="col-md-12">
-                <h2 class="section-title wow bounceInRight animated custom-white" style="text-align: center;">
-                    <i class="fa fa-heart"></i> My Watchlist
-                </h2>
-                <p class="custom-white text-center" style="font-size: 16px;">You have <span class="custom-red" style="font-weight: bold;">{{ total_items }}</span> movie(s) in your watchlist</p>
-            </div>
+<link rel="stylesheet" href="{% static 'user/css/watchlist.css' %}">
+
+<div class="dev-layout">
+
+  <!-- LEFT SIDEBAR (SAME STRUCTURE) -->
+  <aside class="dev-sidebar">
+   <nav class="sidebar-nav">
+      <a href="/userapp/browse-movies/" >🏠 Home</a>
+      <a href="/userapp/browse-movies/" >🎬 Movies</a>
+      <a href="{% url 'view_watchlist' %}">📺 Watch History</a>
+      <a class="active" href="{% url 'view_watchlist' %}">❤️ Wishlist</a>
+      <a href="{% url 'view_discussions' %}">💬 Discussion</a>
+      <a href="{% url 'view_community' %}">👨‍👦‍👦 Community</a>
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <span>Genres</span>
+        <button class="add-btn">＋</button>
+      </div>
+
+      <ul class="tag-list">
+        {% for genre in genres %}
+          <li>#{{ genre.genrename }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dev-main">
+
+    <!-- PAGE HEADER -->
+    <div class="filter-tabs">
+      <button class="active">My Wishlist</button>
+      <span class="count">{{ total_items }} movies</span>
+    </div>
+
+    {% if watchlist_items %}
+    <!-- WATCHLIST GRID -->
+    <section class="movie-feed">
+
+      {% for item in watchlist_items %}
+      <article class="movie-card">
+
+        <div class="poster">
+          {% if item.movieid.poster %}
+            <img src="{{ item.movieid.poster }}" alt="{{ item.movieid.moviename }}">
+          {% else %}
+            <div class="poster-placeholder">🎬</div>
+          {% endif %}
+
+          <a class="remove-btn"
+             href="{% url 'remove_from_watchlist' item.watchid %}"
+             title="Remove">✕</a>
         </div>
 
-        {% if watchlist_items %}
-            <!-- Watchlist Table View -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive" style="background: rgba(0,0,0,0.5); border-radius: 10px; overflow: hidden; border: 1px solid rgba(236, 0, 140, 0.3);">
-                        <table style="width: 100%; color: white;">
-                            <thead>
-                                <tr style="background: linear-gradient(to right, #ec008c, #fc6767); border-bottom: 2px solid rgba(0,0,0,0.5);">
-                                    <th style="padding: 20px; text-align: left; font-weight: bold;">#</th>
-                                    <th style="padding: 20px; text-align: left; font-weight: bold;">Movie Title</th>
-                                    <th style="padding: 20px; text-align: left; font-weight: bold;">Genre</th>
-                                    <th style="padding: 20px; text-align: center; font-weight: bold;">Release Year</th>
-                                    <th style="padding: 20px; text-align: center; font-weight: bold;">Language</th>
-                                    <th style="padding: 20px; text-align: center; font-weight: bold;">Rating</th>
-                                    <th style="padding: 20px; text-align: center; font-weight: bold;">Added Date</th>
-                                    <th style="padding: 20px; text-align: center; font-weight: bold;">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for item in watchlist_items %}
-                                    <tr style="border-bottom: 1px solid rgba(236, 0, 140, 0.2); transition: all 0.3s ease;">
-                                        <td style="padding: 15px 20px; color: #fc6767; font-weight: bold;">{{ forloop.counter }}</td>
-                                        <td style="padding: 15px 20px; max-width: 250px;">
-                                            {% if item.movieid %}
-                                                <a href="#" style="color: #ec008c; text-decoration: none; font-weight: bold; transition: all 0.3s ease;">
-                                                    {{ item.movieid.moviename }}
-                                                </a>
-                                            {% else %}
-                                                <span>{{ item.moviename }}</span>
-                                            {% endif %}
-                                        </td>
-                                        <td style="padding: 15px 20px;">
-                                            {% if item.movieid.genreid %}
-                                                <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 5px 12px; border-radius: 15px;">
-                                                    {{ item.movieid.genreid.genrename }}
-                                                </span>
-                                            {% else %}
-                                                <span style="color: #999;">N/A</span>
-                                            {% endif %}
-                                        </td>
-                                        <td style="padding: 15px 20px; text-align: center;">
-                                            {% if item.movieid.releaseyear %}
-                                                {{ item.movieid.releaseyear }}
-                                            {% else %}
-                                                <span style="color: #999;">N/A</span>
-                                            {% endif %}
-                                        </td>
-                                        <td style="padding: 15px 20px; text-align: center;">
-                                            {% if item.movieid.language %}
-                                                {{ item.movieid.language }}
-                                            {% else %}
-                                                <span style="color: #999;">N/A</span>
-                                            {% endif %}
-                                        </td>
-                                        <td style="padding: 15px 20px; text-align: center;">
-                                            {% if item.movieid.rating %}
-                                                <span class="custom-red" style="font-weight: bold;">
-                                                    {{ item.movieid.rating|floatformat:1 }} <i class="fa fa-star"></i>
-                                                </span>
-                                            {% else %}
-                                                <span style="color: #999;">N/A</span>
-                                            {% endif %}
-                                        </td>
-                                        <td style="padding: 15px 20px; text-align: center;">
-                                            {{ item.addeddate|date:"d M, Y" }}
-                                        </td>
-                                        <td style="padding: 15px 20px; text-align: center;">
-                                            <a href="{% url 'remove_from_watchlist' item.watchid %}" style="display: inline-block; padding: 8px 15px; background: #fc6767; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: all 0.3s ease;" onmouseover="this.style.background='#ec008c'" onmouseout="this.style.background='#fc6767'">
-                                                <i class="fa fa-trash"></i> Remove
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+        <div class="movie-content">
+          <h3>{{ item.movieid.moviename }}</h3>
 
-            <!-- Card View for Mobile -->
-            <div class="row" style="margin-top: 40px; display: none;">
-                {% for item in watchlist_items %}
-                    <div class="col-md-6 col-sm-12" style="margin-bottom: 20px;">
-                        <div class="watchlist-card" style="background: rgba(0,0,0,0.6); border-radius: 10px; padding: 20px; border: 1px solid rgba(236, 0, 140, 0.3);">
-                            <h5 class="custom-white" style="margin-bottom: 15px; font-weight: bold;">
-                                {% if item.movieid %}
-                                    {{ item.movieid.moviename }}
-                                {% else %}
-                                    {{ item.moviename }}
-                                {% endif %}
-                            </h5>
-                            <div style="margin-bottom: 10px;">
-                                {% if item.movieid.genreid %}
-                                    <p style="margin: 5px 0; color: #ccc;">
-                                        <strong>Genre:</strong> 
-                                        <span class="badge" style="background: linear-gradient(to right, #ec008c, #fc6767); padding: 3px 8px; border-radius: 15px; font-size: 12px;">
-                                            {{ item.movieid.genreid.genrename }}
-                                        </span>
-                                    </p>
-                                {% endif %}
-                                {% if item.movieid.releaseyear %}
-                                    <p style="margin: 5px 0; color: #ccc;">
-                                        <strong>Year:</strong> {{ item.movieid.releaseyear }}
-                                    </p>
-                                {% endif %}
-                                {% if item.movieid.language %}
-                                    <p style="margin: 5px 0; color: #ccc;">
-                                        <strong>Language:</strong> {{ item.movieid.language }}
-                                    </p>
-                                {% endif %}
-                                {% if item.movieid.rating %}
-                                    <p style="margin: 5px 0; color: #ccc;">
-                                        <strong>Rating:</strong> <span class="custom-red">{{ item.movieid.rating|floatformat:1 }} <i class="fa fa-star"></i></span>
-                                    </p>
-                                {% endif %}
-                            </div>
-                            <p style="margin: 10px 0; color: #999; font-size: 12px;">
-                                <i class="fa fa-calendar"></i> Added: {{ item.addeddate|date:"d M, Y" }}
-                            </p>
-                            <div style="margin-top: 15px; border-top: 1px solid rgba(236, 0, 140, 0.3); padding-top: 15px;">
-                                <a href="{% url 'remove_from_watchlist' item.watchid %}" style="display: block; padding: 10px; background: #fc6767; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; text-align: center; transition: all 0.3s ease;">
-                                    <i class="fa fa-trash"></i> Remove from Watchlist
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+          <div class="meta">
+            {% if item.movieid.releaseyear %}
+              <span>{{ item.movieid.releaseyear }}</span>
+            {% endif %}
+            {% if item.movieid.language %}
+              <span>{{ item.movieid.language }}</span>
+            {% endif %}
+          </div>
 
-            <!-- Action Buttons -->
-            <div class="row" style="margin-top: 50px;">
-                <div class="col-md-12 text-center">
-                    <a href="{% url 'browse_movies' %}" style="display: inline-block; margin-right: 10px; padding: 12px 30px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                        <i class="fa fa-plus"></i> Add More Movies
-                    </a>
-                    <a href="{% url 'userhome' %}" style="display: inline-block; padding: 12px 30px; background: linear-gradient(to right, #fc6767, #ec008c); color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">
-                        <i class="fa fa-arrow-left"></i> Back to Home
-                    </a>
-                </div>
-            </div>
+          <p>
+            Added on {{ item.addeddate|date:"M d, Y" }}
+          </p>
 
-        {% else %}
-            <!-- Empty Watchlist Message -->
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div style="background: rgba(0,0,0,0.5); padding: 80px 40px; border-radius: 10px; text-align: center; border: 2px solid rgba(236, 0, 140, 0.3);">
-                        <i class="fa fa-heart-o" style="font-size: 80px; color: #ec008c; margin-bottom: 20px; display: block;"></i>
-                        <h4 class="custom-white" style="margin: 20px 0; font-size: 24px;">Your Watchlist is Empty</h4>
-                        <p class="custom-white" style="margin: 10px 0 30px 0; color: #ccc; font-size: 16px;">
-                            Start adding your favorite movies to your watchlist!
-                        </p>
-                        <a href="{% url 'browse_movies' %}" style="display: inline-block; padding: 15px 40px; background: linear-gradient(to right, #ec008c, #fc6767); color: white; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
-                            <i class="fa fa-plus"></i> Browse Movies Now
-                        </a>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
+          <a href="#" class="watch-btn">View Details</a>
+        </div>
+
+      </article>
+      {% endfor %}
+
+    </section>
+
+    {% else %}
+    <!-- EMPTY STATE -->
+    <div class="empty-state">
+      <h3>Your wishlist is empty ❤️</h3>
+      <p>Add movies you want to watch later.</p>
+      <a href="{% url 'browse_movies' %}" class="watch-btn">
+        Browse Movies
+      </a>
     </div>
-</section>
+    {% endif %}
+
+  </main>
+</div>
 
 {% include 'user/footer.html' %}

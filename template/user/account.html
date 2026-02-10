@@ -1,0 +1,209 @@
+{% load static %}
+{% include 'user/header.html' %}
+
+<style>
+    :root {
+        --bg-color: #f5f5f5;
+        --card-bg: #ffffff;
+        --border-color: #d6d6d7;
+        --text-main: #171717;
+        --text-muted: #575757;
+        --accent: #3b49df;
+        --danger-border: #dc2626;
+        --danger-bg: #fef2f2;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    .dev-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 24px;
+    }
+
+    .dev-sidebar a {
+        color: #374151;
+        text-decoration: none;
+        display: block;
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .dev-sidebar a.active,
+    .dev-sidebar a:hover {
+        background: #eef2ff;
+        color: #4338ca;
+    }
+
+
+    /* Sidebar Styling */
+    .side-nav-link {
+        display: flex;
+        align-items: center;
+        padding: 8px 16px;
+        color: var(--text-main);
+        text-decoration: none;
+        border-radius: 6px;
+        margin-bottom: 2px;
+    }
+
+    .side-nav-link:hover {
+        background-color: rgba(59, 73, 223, 0.1);
+        color: var(--accent);
+    }
+
+    .side-nav-link.active {
+        background: var(--card-bg);
+        font-weight: 700;
+    }
+
+    /* Card Styling */
+    .dev-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 24px;
+        margin-bottom: 12px;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    /* Form Elements */
+    .label-text {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .dev-input {
+        width: 100%;
+        padding: 7px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        transition: border 0.2s;
+        margin-bottom: 16px;
+    }
+
+    .dev-input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .btn-action {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .btn-action:hover {
+        background: #2f3ab2;
+    }
+
+    /* Danger Zone */
+    .danger-zone {
+        border: 1px solid #f87171;
+    }
+
+    .btn-danger {
+        background: #dc2626;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-danger:hover {
+        background: #b91c1c;
+    }
+
+    .text-muted-sm {
+        color: var(--text-muted);
+        font-size: 14px;
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="container" style="margin-top:90px; margin-bottom:60px;">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3">
+            <div class="dev-card dev-sidebar">
+                <h5 class="mb-3">⚙ Settings</h5>
+                <a class="active" href="{% url 'profile' %}">🙂 Profile</a>
+                <a href="{% url 'account' %}" class="active">🍁 Account</a>
+                <a href="{% url 'preferences' %}">🎬 Preferences</a>
+                <a href="{% url 'view_watchlist' %}">❤️ Watchlist</a>
+                <a href="/guestapp/logout" style="color:#dc2626;">🚪 Logout</a>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="col-md-8 col-lg-9">
+            <h1 class="h3 mb-4 fw-bold">Account</h1>
+
+            <div class="dev-card">
+                <h2 class="card-title">Set Password</h2>
+                <form method="post" action="{% url 'change_password' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="label-text">Current password</label>
+                        <input type="password" name="current_password" class="dev-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="label-text">New password</label>
+                        <input type="password" name="new_password" class="dev-input">
+                    </div>
+                    <div class="mb-3">
+                        <label class="label-text">Confirm new password</label>
+                        <input type="password" name="confirm_password" class="dev-input">
+                    </div>
+                    <button type="submit" class="btn-action">Set password</button>
+                </form>
+            </div>
+
+            <div class="dev-card">
+                <h2 class="card-title">Account Emails</h2>
+                <div class="mb-4">
+                    <label class="label-text">Primary email</label>
+                    <input type="email" value="{{ user.email }}" class="dev-input" readonly>
+                    <p class="text-muted-sm">Your primary email is used for account-related notifications.</p>
+                </div>
+            </div>
+
+            <div class="dev-card danger-zone">
+                <h2 class="card-title" style="color: #dc2626;">Danger Zone</h2>
+                <p>Delete account</p>
+                <p class="text-muted-sm">
+                    Deleting your account will:
+                <ul class="text-muted-sm">
+                    <li>Permanently delete your profile, movies watched, and reviews.</li>
+                    <li>Remove your personal data from our recommendation engine.</li>
+                </ul>
+                </p>
+                <a href="#" class="btn-danger">Delete Account</a>
+            </div>
+
+        </div>
+    </div>
+</div>

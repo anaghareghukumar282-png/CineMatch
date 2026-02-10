@@ -1,0 +1,135 @@
+{% load static %}
+{% include 'user/header.html' %}
+
+<link rel="stylesheet" href="{% static 'user/css/discussions.css' %}">
+
+<div class="dev-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="dev-sidebar">
+    <nav class="sidebar-nav">
+      <a href="/userapp/browse-movies/">🏠 Home</a>
+      <a href="/userapp/browse-movies/">🎬 Movies</a>
+      <a href="{% url 'view_watchlist' %}">📺 Watch History</a>
+      <a href="{% url 'view_watchlist' %}">❤️ Wishlist</a>
+      <a class="active" href="{% url 'view_discussions' %}">💬 Discussion</a>
+      <a href="{% url 'view_community' %}">👨‍👦‍👦 Community</a>
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <span>Categories</span>
+      </div>
+
+      <ul class="tag-list">
+        <li class="active">All Discussions</li>
+        <li>🎬 Movies</li>
+        <li>🎭 Actors</li>
+        <li>🎞 Genres</li>
+        <li>📢 Announcements</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="dev-main">
+
+    <!-- TOP BAR -->
+    <div class="discussion-toolbar">
+      <input type="text" placeholder="Search discussions…" />
+      <select>
+        <option>Latest activity</option>
+        <option>Most comments</option>
+      </select>
+      <a href="{% url 'new_discussion' %}"><button class="new-btn">New Discussion</button></a>
+    </div>
+
+    <!-- DISCUSSION LIST -->
+    <section class="discussion-list">
+
+      <!-- Discussion Item -->
+      <a href="{% url 'discussion_detail' discussion_id=1 %}"
+        style="text-decoration: none; color: inherit;">
+        <article class="discussion-item">
+          <div class="vote">▲<span>24</span></div>
+
+          <div class="discussion-content">
+            <h3>Why Interstellar still feels unmatched?</h3>
+
+            <div class="labels">
+              <span class="label movie">Movie</span>
+              <span class="label scifi">Sci-Fi</span>
+            </div>
+
+            <p>
+              Is it the music, the emotional depth, or the science accuracy?
+            </p>
+
+            <div class="discussion-meta">
+              <span>💬 18 replies</span>
+              <span>🕒 2 hours ago</span>
+              <span>👤 by cinefan_01</span>
+            </div>
+          </div>
+        </article>
+      </a>
+
+
+      <!-- Actor Discussion -->
+       <a href="{% url 'discussion_detail' discussion_id=1 %}"
+        style="text-decoration: none; color: inherit;">
+      <article class="discussion-item">
+        <div class="vote">▲<span>9</span></div>
+
+        <div class="discussion-content">
+          <h3>Leonardo DiCaprio’s best performance?</h3>
+
+          <div class="labels">
+            <span class="label actor">Actor</span>
+          </div>
+
+          <p>
+            Wolf of Wall Street vs The Revenant vs Inception?
+          </p>
+
+          <div class="discussion-meta">
+            <span>💬 32 replies</span>
+            <span>🕒 Yesterday</span>
+            <span>👤 by movielover</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+      <!-- Genre -->
+       <a href="{% url 'discussion_detail' discussion_id=1 %}"
+        style="text-decoration: none; color: inherit;">
+      <article class="discussion-item">
+        <div class="vote">▲<span>14</span></div>
+
+        <div class="discussion-content">
+          <h3>Is Sci-Fi replacing traditional drama?</h3>
+
+          <div class="labels">
+            <span class="label genre">Genre</span>
+          </div>
+
+          <p>
+            Modern sci-fi movies focus more on emotions than technology.
+          </p>
+
+          <div class="discussion-meta">
+            <span>💬 11 replies</span>
+            <span>🕒 3 days ago</span>
+            <span>👤 by future_film</span>
+          </div>
+        </div>
+      </article>
+      </a>
+
+    </section>
+
+  </main>
+</div>
+
+{% include 'user/footer.html' %}

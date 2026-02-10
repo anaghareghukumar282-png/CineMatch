@@ -29,7 +29,7 @@
     <div class="dev-header-inner">
 
       <!-- Logo -->
-      <a href="/userapp/userhome/" class="dev-logo">
+      <a href="/userapp/browse-movies" class="dev-logo">
         CINE<span>MATCH</span>
       </a>
 
@@ -40,11 +40,7 @@
 
       <!-- Nav -->
       <nav class="dev-nav">
-        <!-- <a href="/userapp/browse-movies/">Home</a>
-        <a href="#service">Movies</a>
-        <a href="#about">About</a>
-        <a href="#meet">Wishlist</a>
-        <a href="#contact">Contact</a> -->
+       <!-- <button class="btn">Create Post</button> -->
 
 
         {% if request.session.loginid %}
@@ -69,3 +65,17 @@
 
 
 </body>
+
+<style>
+    .btn {
+        background-color: #ffffff;
+        color: rgb(72, 86, 245);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 20px;
+        border: 1px solid rgb(72, 86, 245);
+    }
+</style>
